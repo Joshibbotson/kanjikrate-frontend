@@ -1,0 +1,25 @@
+<div class="main-container">
+  <div class="central-card" [formGroup]="loginForm">
+    <img src="/src/assets/kanjikrateicon.png" width="5rem" height="5rem" />
+    <h1>Sign up for KanjiKrate</h1>
+    <div class="input-wrapper">
+      <input type="text" formControlName="email" />
+    </div>
+    <div class="input-wrapper password-input">
+      <input type="password" formControlName="password" />
+    </div>
+    <CommonButton
+      [disabled]="!loginForm.valid"
+      (click)="signUp()"
+      title="Sign up"
+    />
+    <div class="wrapper">
+      <p>or</p>
+    </div>
+    <CommonButton title="Continue with google" />
+    <span>
+      <p>Don't have an account yet?</p>
+      <a href="/signup">Sign up</a>
+    </span>
+  </div>
+</div>
