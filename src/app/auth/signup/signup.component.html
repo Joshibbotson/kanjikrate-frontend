@@ -1,6 +1,6 @@
 <div class="main-container">
-  <div class="central-card" [formGroup]="loginForm">
-    <img src="/src/assets/kanjikrateicon.png" width="5rem" height="5rem" />
+  <div class="central-card" [formGroup]="signupForm">
+    <img src="../../../assets/kanjikrateicon.png" width="5rem" height="5rem" />
     <h1>Sign up for KanjiKrate</h1>
     <div class="input-wrapper">
       <input type="text" formControlName="email" />
@@ -9,7 +9,7 @@
       <input type="password" formControlName="password" />
     </div>
     <CommonButton
-      [disabled]="!loginForm.valid"
+      [disabled]="!signupForm.valid"
       (click)="signUp()"
       title="Sign up"
     />
