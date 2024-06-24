@@ -1,29 +1,29 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../ui/button/button.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { catchError, throwError } from 'rxjs';
+
 import { Router } from '@angular/router';
+import { ButtonComponent } from '../../ui/button/button.component';
 import { AuthService } from '../../api/api/auth.service';
-import { UserService } from '../../api/api/user.service';
-import { CreateUser200Response, User } from '../../api';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'app-login',
   standalone: true,
-  imports: [ButtonComponent, ReactiveFormsModule],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss',
+  imports: [ReactiveFormsModule, ButtonComponent],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss',
 })
-export class SignupComponent {
+export class LoginComponent {
   public readonly kanjiKrateIcon = '../../assets/kanjikrateicon.png';
-  public signupForm: FormGroup;
+  public loginForm: FormGroup;
+
   constructor(
     private fb: FormBuilder,
-    private authService: UserService,
+    private authService: AuthService,
     private router: Router
   ) {
-    this.signupForm = this.initFormGroup();
+    this.loginForm = this.initFormGroup();
   }
 
   private initFormGroup(): FormGroup {
@@ -33,8 +33,8 @@ export class SignupComponent {
     });
   }
 
-  public async signUp() {
-    (await this.authService.createUser(this.signupForm.value))
+  public async login() {
+    (await this.authService.login(this.loginForm.value))
       .pipe(
         catchError((error: any) => {
           console.error('An error or occurred:', error);
@@ -46,6 +46,7 @@ export class SignupComponent {
           if (res.token) {
             localStorage.setItem('token', res.token);
           }
+
           this.router.navigate(['/dashboard']);
         },
         error: (err) => console.error(err),

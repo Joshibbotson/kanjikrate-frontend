@@ -14,12 +14,21 @@ export class AuthService {
   public validateToken(token: string) {
     const requestBody = { token: token };
     return this.http.post<any>(
-      `${this.apiUrl}/user/validateToken`,
+      `${this.apiUrl}/auth/validateToken`,
       requestBody
     );
   }
 
   public registerUser(opts: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/user/create`, opts);
+    return this.http.post(`${this.apiUrl}/user/create`, opts);
+  }
+
+  public login(opts: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/login`, opts);
+  }
+
+  public logout(): void {
+    localStorage.removeItem('loginToken');
+    localStorage.removeItem('user');
   }
 }
