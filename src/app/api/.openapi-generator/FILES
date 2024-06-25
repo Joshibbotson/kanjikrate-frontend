@@ -18,8 +18,10 @@ model/createUser200Response.ts
 model/createUser500Response.ts
 model/createUserDto.ts
 model/deck.ts
+model/iLoginOpts.ts
 model/login200Response.ts
-model/login500Response.ts
+model/login401Response.ts
+model/login404Response.ts
 model/models.ts
 model/readCardById200Response.ts
 model/readCardById500Response.ts
@@ -28,5 +30,7 @@ model/readDeckById500Response.ts
 model/readUserById200Response.ts
 model/readUserById500Response.ts
 model/user.ts
+model/validateToken200Response.ts
+model/validateToken401Response.ts
 param.ts
 variables.ts

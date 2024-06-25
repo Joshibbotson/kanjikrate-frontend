@@ -11,12 +11,17 @@
     <CommonButton
       [disabled]="!loginForm.valid"
       (click)="login()"
-      title="Sign up"
+      title="Login"
     />
+
+    @if (errorMessage) {
+    <div>{{ errorMessage }}</div>
+    }
+
     <div class="wrapper">
       <p>or</p>
     </div>
-    <CommonButton title="Continue with google" />
+    <CommonButton title="Continue with Google" />
     <span>
       <p>Don't have an account yet?</p>
       <a href="/signup">Sign up</a>

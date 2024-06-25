@@ -1,7 +1,21 @@
+@import "../../../styles.scss";
+
 button {
   border: none;
   width: 100%;
   border-radius: 4px;
   padding: 0.5rem;
   font-weight: 500;
+  color: white;
+  background-color: $tertiaryColour;
+  transition: all 250ms;
+  cursor: pointer;
+}
+
+button:hover {
+  color: $tertiaryColour;
+  background-color: white;
+}
+button:active {
+  background-color: $offWhite;
 }

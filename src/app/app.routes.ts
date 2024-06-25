@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AuthGuardService } from './auth/auth-guard.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 export const routes: Routes = [
   {
@@ -19,8 +20,14 @@ export const routes: Routes = [
   {
     title: 'dashboard',
     path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuardService],
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: DashboardComponent,
+        canActivate: [AuthGuardService],
+      },
+    ],
   },
 ];
 

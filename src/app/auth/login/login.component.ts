@@ -17,6 +17,7 @@ import { AuthService } from '../../api/api/auth.service';
 export class LoginComponent {
   public readonly kanjiKrateIcon = '../../assets/kanjikrateicon.png';
   public loginForm: FormGroup;
+  public errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -33,11 +34,15 @@ export class LoginComponent {
     });
   }
 
-  public async login() {
-    (await this.authService.login(this.loginForm.value))
+  public login() {
+    this.authService
+      .login(this.loginForm.value)
       .pipe(
         catchError((error: any) => {
-          console.error('An error or occurred:', error);
+          console.log('oh god an error:', error.error);
+          // make this a signal?
+          this.errorMessage = error.error.error || 'An unknown error occurred!';
+
           return throwError(() => error);
         })
       )
@@ -45,11 +50,12 @@ export class LoginComponent {
         next: (res) => {
           if (res.token) {
             localStorage.setItem('token', res.token);
+            this.router.navigate(['/dashboard']);
           }
-
-          this.router.navigate(['/dashboard']);
         },
-        error: (err) => console.error(err),
+        error: (err) => {
+          console.error('An error occurred:', err);
+        },
       });
   }
 }

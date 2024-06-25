@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../ui/button/button.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from '../../api/api/auth.service';
 import { UserService } from '../../api/api/user.service';
-import { CreateUser200Response, User } from '../../api';
 
 @Component({
   selector: 'app-signup',
@@ -28,8 +30,9 @@ export class SignupComponent {
 
   private initFormGroup(): FormGroup {
     return this.fb.group({
-      email: [''],
-      password: [''],
+      name: [''],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 

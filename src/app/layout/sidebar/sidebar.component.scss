@@ -1,4 +1,35 @@
+@import "../../../styles.scss";
+
 :host {
-  background: #fffe55;
-  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: $primaryColour;
+  min-width: 10rem;
+}
+
+h2 {
+  color: white;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .circle {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    margin-top: 1rem;
+    background-color: white;
+  }
+}
+
+.bottom-container {
+  width: 100%;
 }
