@@ -1,0 +1,7 @@
+<div class="card" (click)="toggleCardFace()">
+  @if (currentShowingFace().valueOf() === 0) {
+  <h1>{{ front() }}</h1>
+  } @else {
+  <h1>{{ back() }}</h1>
+  }
+</div>

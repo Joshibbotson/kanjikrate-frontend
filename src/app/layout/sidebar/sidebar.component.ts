@@ -13,7 +13,6 @@ import { Observable } from 'rxjs';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  // public readonly $quote: Observable<string>;
   constructor(
     private readonly _authService: AuthService,
     private readonly _quoteApiService: QuoteApiService,

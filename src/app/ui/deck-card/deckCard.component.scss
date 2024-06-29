@@ -1,6 +1,10 @@
-@import "../../styles.scss";
+@import "../../../styles.scss";
 
 .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   height: 30rem;
   width: 15rem;
   border-radius: 10px;

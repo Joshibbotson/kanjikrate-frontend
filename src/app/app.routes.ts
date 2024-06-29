@@ -5,6 +5,7 @@ import { AuthGuardService } from './auth/auth-guard.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { DecksListComponent } from './decks-list/decks-list.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,18 @@ export const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+        canActivate: [AuthGuardService],
+      },
+    ],
+  },
+  {
+    title: 'decks',
+    path: 'decks',
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: DecksListComponent,
         canActivate: [AuthGuardService],
       },
     ],

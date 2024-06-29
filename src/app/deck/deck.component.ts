@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CardComponent } from '../card/card.component';
+import { DeckCardComponent } from '../ui/deck-card/deckCard.component';
 
 @Component({
   selector: 'app-deck',
   standalone: true,
-  imports: [CardComponent],
+  imports: [DeckCardComponent],
   templateUrl: './deck.component.html',
   styleUrl: './deck.component.scss',
 })
