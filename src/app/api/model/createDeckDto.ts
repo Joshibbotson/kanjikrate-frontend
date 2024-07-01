@@ -29,8 +29,8 @@ export interface CreateDeckDto {
      */
     owner: object;
     /**
-     * The cards in the deck
+     * Array of Card ObjectIds
      */
-    cards: Array<object>;
+    cards?: Array<string>;
 }
 

@@ -9,18 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Card } from './card';
 
 
-export interface Card { 
-    front: string;
-    back: string;
-    /**
-     * Array of Deck ObjectIds
-     */
-    deck: Array<string>;
-    lastReviewed?: string;
-    interval: number;
-    repetitions: number;
-    easeFactor: number;
+export interface CreateCard200Response { 
+    code?: number;
+    success?: boolean;
+    message?: string;
+    data?: Card;
 }
 

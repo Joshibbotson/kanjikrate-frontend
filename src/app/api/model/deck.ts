@@ -9,14 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { User } from './user';
-import { Card } from './card';
 
 
 export interface Deck { 
     name: string;
     description?: string;
-    owner?: User;
-    cards: Array<Card>;
+    owner?: string;
+    /**
+     * Array of Card ObjectIds
+     */
+    cards: Array<string>;
 }
 

@@ -19,17 +19,21 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { ILoginOpts } from '../model/iLoginOpts';
+import { CreateDeck200Response } from '../model/createDeck200Response';
 // @ts-ignore
-import { Login200Response } from '../model/login200Response';
+import { CreateDeck500Response } from '../model/createDeck500Response';
 // @ts-ignore
-import { Login401Response } from '../model/login401Response';
+import { CreateDeckDto } from '../model/createDeckDto';
 // @ts-ignore
-import { Login404Response } from '../model/login404Response';
+import { ReadByFieldDto } from '../model/readByFieldDto';
 // @ts-ignore
-import { ValidateToken200Response } from '../model/validateToken200Response';
+import { ReadDeckByField200Response } from '../model/readDeckByField200Response';
 // @ts-ignore
-import { ValidateToken401Response } from '../model/validateToken401Response';
+import { ReadDeckByField500Response } from '../model/readDeckByField500Response';
+// @ts-ignore
+import { ReadDeckById200Response } from '../model/readDeckById200Response';
+// @ts-ignore
+import { ReadDeckById500Response } from '../model/readDeckById500Response';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -40,7 +44,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class DeckService {
 
     protected basePath = 'http://localhost:3000';
     public defaultHeaders = new HttpHeaders();
@@ -103,17 +107,17 @@ export class AuthService {
     }
 
     /**
-     * Login
-     * @param iLoginOpts 
+     * Create a deck
+     * @param createDeckDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public login(iLoginOpts: ILoginOpts, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Login200Response>;
-    public login(iLoginOpts: ILoginOpts, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Login200Response>>;
-    public login(iLoginOpts: ILoginOpts, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Login200Response>>;
-    public login(iLoginOpts: ILoginOpts, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (iLoginOpts === null || iLoginOpts === undefined) {
-            throw new Error('Required parameter iLoginOpts was null or undefined when calling login.');
+    public createDeck(createDeckDto: CreateDeckDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CreateDeck200Response>;
+    public createDeck(createDeckDto: CreateDeckDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CreateDeck200Response>>;
+    public createDeck(createDeckDto: CreateDeckDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CreateDeck200Response>>;
+    public createDeck(createDeckDto: CreateDeckDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createDeckDto === null || createDeckDto === undefined) {
+            throw new Error('Required parameter createDeckDto was null or undefined when calling createDeck.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -161,11 +165,11 @@ export class AuthService {
             }
         }
 
-        let localVarPath = `/auth/login`;
-        return this.httpClient.request<Login200Response>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/deck/create`;
+        return this.httpClient.request<CreateDeck200Response>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: iLoginOpts,
+                body: createDeckDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -177,14 +181,92 @@ export class AuthService {
     }
 
     /**
-     * Validate Token
+     * Read deck by field
+     * @param readByFieldDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public validateToken(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ValidateToken200Response>;
-    public validateToken(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ValidateToken200Response>>;
-    public validateToken(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ValidateToken200Response>>;
-    public validateToken(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public readDeckByField(readByFieldDto: ReadByFieldDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ReadDeckByField200Response>;
+    public readDeckByField(readByFieldDto: ReadByFieldDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ReadDeckByField200Response>>;
+    public readDeckByField(readByFieldDto: ReadByFieldDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ReadDeckByField200Response>>;
+    public readDeckByField(readByFieldDto: ReadByFieldDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (readByFieldDto === null || readByFieldDto === undefined) {
+            throw new Error('Required parameter readByFieldDto was null or undefined when calling readDeckByField.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/deck/readByField`;
+        return this.httpClient.request<ReadDeckByField200Response>('post', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: readByFieldDto,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Read deck by Id
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public readDeckById(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ReadDeckById200Response>;
+    public readDeckById(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ReadDeckById200Response>>;
+    public readDeckById(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ReadDeckById200Response>>;
+    public readDeckById(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling readDeckById.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -222,8 +304,8 @@ export class AuthService {
             }
         }
 
-        let localVarPath = `/auth/validateToken`;
-        return this.httpClient.request<ValidateToken200Response>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/deck/readById/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<ReadDeckById200Response>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

@@ -3,7 +3,8 @@ README.md
 api.module.ts
 api/api.ts
 api/auth.service.ts
-api/default.service.ts
+api/card.service.ts
+api/deck.service.ts
 api/user.service.ts
 configuration.ts
 encoder.ts
@@ -23,8 +24,11 @@ model/login200Response.ts
 model/login401Response.ts
 model/login404Response.ts
 model/models.ts
+model/readByFieldDto.ts
 model/readCardById200Response.ts
 model/readCardById500Response.ts
+model/readDeckByField200Response.ts
+model/readDeckByField500Response.ts
 model/readDeckById200Response.ts
 model/readDeckById500Response.ts
 model/readUserById200Response.ts

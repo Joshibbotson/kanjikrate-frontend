@@ -39,10 +39,7 @@ export class LoginComponent {
       .login(this.loginForm.value)
       .pipe(
         catchError((error: any) => {
-          console.log('oh god an error:', error.error);
-          // make this a signal?
           this.errorMessage = error.error.error || 'An unknown error occurred!';
-
           return throwError(() => error);
         })
       )

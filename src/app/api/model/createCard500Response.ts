@@ -11,10 +11,10 @@
  */
 
 
-export interface Login500Response { 
+export interface CreateCard500Response { 
     code?: number;
     success?: boolean;
     message?: string;
-    token?: object | null;
+    data?: object | null;
 }
 

@@ -8,11 +8,12 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
+  private token: string | null = null;
 
   constructor(private http: HttpClient) {}
 
   public validateToken(token: string) {
-    const requestBody = { token: token };
+    const requestBody = { token };
     return this.http.post<any>(
       `${this.apiUrl}/auth/validateToken`,
       requestBody
@@ -25,6 +26,13 @@ export class AuthService {
 
   public login(opts: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login`, opts);
+  }
+
+  public getToken(): string | null {
+    if (!this.token) {
+      this.token = localStorage.getItem('token');
+    }
+    return this.token;
   }
 
   public logout(): void {

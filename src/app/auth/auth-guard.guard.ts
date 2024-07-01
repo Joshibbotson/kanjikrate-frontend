@@ -20,7 +20,7 @@ export class AuthGuardService {
         return resolve(false);
       }
       this.authService.validateToken(token).subscribe((tkn) => {
-        if (tkn) {
+        if (tkn.success) {
           resolve(true);
         } else {
           this.authService.logout();

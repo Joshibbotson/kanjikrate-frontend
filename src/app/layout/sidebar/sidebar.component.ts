@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { QuoteApiService } from '../../services/quote-api.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,13 +13,8 @@ import { Observable } from 'rxjs';
 export class SidebarComponent {
   constructor(
     private readonly _authService: AuthService,
-    private readonly _quoteApiService: QuoteApiService,
     private readonly router: Router
-  ) {
-    this._quoteApiService.fetchRandomQuote().subscribe((quotes) => {
-      console.log(quotes);
-    });
-  }
+  ) {}
 
   public handleLogout() {
     this._authService.logout();

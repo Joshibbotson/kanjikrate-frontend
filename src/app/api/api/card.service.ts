@@ -19,17 +19,13 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { ILoginOpts } from '../model/iLoginOpts';
+import { Card } from '../model/card';
 // @ts-ignore
-import { Login200Response } from '../model/login200Response';
+import { CreateCardDto } from '../model/createCardDto';
 // @ts-ignore
-import { Login401Response } from '../model/login401Response';
+import { ReadCardById200Response } from '../model/readCardById200Response';
 // @ts-ignore
-import { Login404Response } from '../model/login404Response';
-// @ts-ignore
-import { ValidateToken200Response } from '../model/validateToken200Response';
-// @ts-ignore
-import { ValidateToken401Response } from '../model/validateToken401Response';
+import { ReadCardById500Response } from '../model/readCardById500Response';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -40,7 +36,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class CardService {
 
     protected basePath = 'http://localhost:3000';
     public defaultHeaders = new HttpHeaders();
@@ -103,17 +99,17 @@ export class AuthService {
     }
 
     /**
-     * Login
-     * @param iLoginOpts 
+     * Create a new card
+     * @param createCardDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public login(iLoginOpts: ILoginOpts, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Login200Response>;
-    public login(iLoginOpts: ILoginOpts, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Login200Response>>;
-    public login(iLoginOpts: ILoginOpts, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Login200Response>>;
-    public login(iLoginOpts: ILoginOpts, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (iLoginOpts === null || iLoginOpts === undefined) {
-            throw new Error('Required parameter iLoginOpts was null or undefined when calling login.');
+    public createCard(createCardDto: CreateCardDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Card>;
+    public createCard(createCardDto: CreateCardDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Card>>;
+    public createCard(createCardDto: CreateCardDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Card>>;
+    public createCard(createCardDto: CreateCardDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createCardDto === null || createCardDto === undefined) {
+            throw new Error('Required parameter createCardDto was null or undefined when calling createCard.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -161,11 +157,11 @@ export class AuthService {
             }
         }
 
-        let localVarPath = `/auth/login`;
-        return this.httpClient.request<Login200Response>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/card/create`;
+        return this.httpClient.request<Card>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: iLoginOpts,
+                body: createCardDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -177,14 +173,18 @@ export class AuthService {
     }
 
     /**
-     * Validate Token
+     * Read a card by ID
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public validateToken(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ValidateToken200Response>;
-    public validateToken(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ValidateToken200Response>>;
-    public validateToken(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ValidateToken200Response>>;
-    public validateToken(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public readCardById(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ReadCardById200Response>;
+    public readCardById(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ReadCardById200Response>>;
+    public readCardById(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ReadCardById200Response>>;
+    public readCardById(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling readCardById.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -222,8 +222,8 @@ export class AuthService {
             }
         }
 
-        let localVarPath = `/auth/validateToken`;
-        return this.httpClient.request<ValidateToken200Response>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/card/readById/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<ReadCardById200Response>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
