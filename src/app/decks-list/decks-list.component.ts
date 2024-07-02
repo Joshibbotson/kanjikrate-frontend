@@ -11,7 +11,8 @@ import { DeckService } from '../api';
 })
 export class DecksListComponent {
   constructor(private readonly _deckService: DeckService) {
-    console.log('called');
+    // okay we should setup saving the user to localstorage for now
+    // accept that this is the quickest way without setting up state management.
     this._deckService
       .readDeckByField({
         field: 'owner',

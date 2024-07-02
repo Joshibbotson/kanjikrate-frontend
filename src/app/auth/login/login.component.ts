@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { catchError, throwError } from 'rxjs';
@@ -14,7 +14,7 @@ import { AuthService } from '../../api/api/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
   public readonly kanjiKrateIcon = '../../assets/kanjikrateicon.png';
   public loginForm: FormGroup;
   public errorMessage: string | null = null;
@@ -27,11 +27,28 @@ export class LoginComponent {
     this.loginForm = this.initFormGroup();
   }
 
+  ngOnInit(): void {
+    document.addEventListener('keydown', this.keyDownLogin.bind(this));
+  }
+
+  ngOnDestroy(): void {
+    document.removeEventListener('keydown', this.keyDownLogin.bind(this));
+  }
+
   private initFormGroup(): FormGroup {
     return this.fb.group({
       email: [''],
       password: [''],
     });
+  }
+
+  public keyDownLogin(event: KeyboardEvent) {
+    if (!this.loginForm.valid) {
+      return;
+    }
+    if (event.key === 'Enter') {
+      this.login();
+    }
   }
 
   public login() {
