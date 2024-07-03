@@ -19,3 +19,12 @@ button:hover {
 button:active {
   background-color: $offWhite;
 }
+
+button:disabled {
+  opacity: 0.5;
+}
+
+button:disabled:hover {
+  color: white;
+  background-color: $tertiaryColour;
+}

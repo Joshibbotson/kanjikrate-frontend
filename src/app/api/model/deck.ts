@@ -12,6 +12,11 @@
 
 
 export interface Deck { 
+    createdDate: string;
+    updatedDate: string;
+    deletedDate: string;
+    __v: number;
+    _id: string;
     name: string;
     description?: string;
     owner?: string;

@@ -1,8 +1,13 @@
-<p>decks-list works!</p>
 <mat-paginator
-  [length]="100"
-  [pageSize]="10"
+  [length]="totalDecks"
+  [pageSize]="pageSize"
   [pageSizeOptions]="[5, 10, 25, 100]"
   aria-label="Select page"
+  (page)="onPageChange($event)"
 >
 </mat-paginator>
+<div class="flex-box">
+  @for (deck of decksData; track $index) {
+  <app-deck-cover [deckInfo]="deck" />
+  }
+</div>

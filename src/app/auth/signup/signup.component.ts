@@ -48,6 +48,7 @@ export class SignupComponent {
         next: (res) => {
           if (res.token) {
             localStorage.setItem('token', res.token);
+            localStorage.setItem('user', JSON.stringify(res.data));
           }
           this.router.navigate(['/dashboard']);
         },

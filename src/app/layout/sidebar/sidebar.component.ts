@@ -1,23 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { ButtonComponent } from '../../ui/button/button.component';
-import { AuthService } from '../../auth/auth.service';
+import { LocalAuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, CommonModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
+  private usernameSignal = signal<string | undefined>(
+    this.localAuthService.User?.name
+  );
+  public readonly username = computed(() => this.usernameSignal());
+
   constructor(
-    private readonly _authService: AuthService,
+    private readonly localAuthService: LocalAuthService,
     private readonly router: Router
   ) {}
 
   public handleLogout() {
-    this._authService.logout();
+    this.localAuthService.logout();
     this.router.navigate(['/login']);
   }
 }

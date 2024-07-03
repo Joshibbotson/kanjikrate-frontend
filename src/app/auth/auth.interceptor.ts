@@ -6,7 +6,7 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service'; // Adjust the path as necessary
+import { LocalAuthService } from './auth.service'; // Adjust the path as necessary
 
 // make this work, we need to pass the backend our token.
 export const authInterceptor: HttpInterceptorFn = (
@@ -14,7 +14,7 @@ export const authInterceptor: HttpInterceptorFn = (
   next: HttpHandlerFn
 ): Observable<HttpEvent<any>> => {
   console.log('authInterceptor');
-  const authService = inject(AuthService);
+  const authService = inject(LocalAuthService);
   const token = authService.getToken();
   console.log(token);
 

@@ -12,6 +12,11 @@
 
 
 export interface User { 
+    createdDate: string;
+    updatedDate: string;
+    deletedDate: string;
+    __v: number;
+    _id: string;
     googleUserId: string;
     active: boolean;
     email?: string;

@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { DecksListComponent } from './decks-list/decks-list.component';
+import { DeckComponent } from './deck/deck.component';
 
 export const routes: Routes = [
   {
@@ -38,6 +39,11 @@ export const routes: Routes = [
       {
         path: '',
         component: DecksListComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: ':id',
+        component: DeckComponent,
         canActivate: [AuthGuardService],
       },
     ],

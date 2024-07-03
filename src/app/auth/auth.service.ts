@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../api';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class LocalAuthService {
   private apiUrl = environment.apiUrl;
   private token: string | null = null;
+  private user: Partial<User> | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -35,7 +37,16 @@ export class AuthService {
     return this.token;
   }
 
+  get User(): Partial<User> | null {
+    if (!this.user) {
+      const fetchedUser = localStorage.getItem('user');
+      this.user = fetchedUser ? JSON.parse(fetchedUser) : null;
+    }
+    return this.user;
+  }
+
   public logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 }

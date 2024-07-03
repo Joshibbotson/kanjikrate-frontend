@@ -16,5 +16,6 @@ export interface Login401Response {
     success?: boolean;
     message?: string;
     token?: object | null;
+    user?: object | null;
 }
 

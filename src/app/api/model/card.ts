@@ -12,6 +12,11 @@
 
 
 export interface Card { 
+    createdDate: string;
+    updatedDate: string;
+    deletedDate: string;
+    __v: number;
+    _id: string;
     front: string;
     back: string;
     /**

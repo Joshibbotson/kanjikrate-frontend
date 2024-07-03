@@ -16,5 +16,6 @@ export interface Login200Response {
     success?: boolean;
     message?: string;
     token?: string;
+    user?: object;
 }
 

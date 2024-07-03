@@ -16,6 +16,7 @@ export interface ReadDeckByField200Response {
     code?: number;
     success?: boolean;
     message?: string;
-    data?: Deck;
+    data?: Array<Deck>;
+    totalCount?: number;
 }
 

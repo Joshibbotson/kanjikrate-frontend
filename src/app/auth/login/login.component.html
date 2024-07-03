@@ -3,13 +3,17 @@
     <img src="../../../assets/kanjikrateicon.png" width="5rem" height="5rem" />
     <h1>Login to KanjiKrate</h1>
     <div class="input-wrapper">
-      <input type="text" formControlName="email" />
+      <input type="text" formControlName="email" placeholder="email..." />
     </div>
     <div class="input-wrapper password-input">
-      <input type="password" formControlName="password" />
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="password..."
+      />
     </div>
     <CommonButton
-      [disabled]="!loginForm.valid"
+      [disabled]="!loginForm.valid && enableLoginBtn"
       (click)="login()"
       title="Login"
     />

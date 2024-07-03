@@ -16,5 +16,6 @@ export interface ReadDeckByField500Response {
     success?: boolean;
     message?: string;
     data?: object | null;
+    totalCount?: number;
 }
 
