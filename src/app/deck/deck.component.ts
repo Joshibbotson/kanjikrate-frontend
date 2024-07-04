@@ -1,15 +1,16 @@
-import { Component, InputSignal, Signal, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { DeckCardComponent } from '../ui/deck-card/deckCard.component';
 import { Deck, DeckService } from '../api';
 import { ActivatedRoute } from '@angular/router';
 import { catchError } from 'rxjs';
+import { ButtonComponent } from "../ui/button/button.component";
 
 @Component({
-  selector: 'app-deck',
-  standalone: true,
-  imports: [DeckCardComponent],
-  templateUrl: './deck.component.html',
-  styleUrl: './deck.component.scss',
+    selector: 'app-deck',
+    standalone: true,
+    templateUrl: './deck.component.html',
+    styleUrl: './deck.component.scss',
+    imports: [DeckCardComponent, ButtonComponent]
 })
 export class DeckComponent {
   public deckData: Deck | undefined;

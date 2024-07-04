@@ -2,6 +2,8 @@ $primaryColour: #2e3d50;
 $secondaryColour: #009688;
 $tertiaryColour: #26a69a;
 $offWhite: rgb(221, 221, 221);
+$boxShadow: 0px 2px 10px 5px $offWhite;
+
 html,
 body {
   height: 100%;
