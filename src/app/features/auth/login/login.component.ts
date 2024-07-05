@@ -7,8 +7,8 @@ import {
 } from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { ButtonComponent } from '../../ui/button/button.component';
-import { AuthService } from '../../api/api/auth.service';
+import { AuthService } from '../../../api';
+import { ButtonComponent } from '../../../ui/button/button.component';
 
 @Component({
   selector: 'app-login',

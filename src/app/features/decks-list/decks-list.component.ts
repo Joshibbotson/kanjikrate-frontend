@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { Deck, DeckService, User } from '../api';
 import { LocalAuthService } from '../auth/auth.service';
 import { catchError } from 'rxjs';
-import { DeckCoverComponent } from '../ui/deck-cover/deckCover.component';
+import { DeckCoverComponent } from '../../ui/deck-cover/deckCover.component';
+import { User, Deck, DeckService } from '../../api';
 
 @Component({
   selector: 'app-decks-list',

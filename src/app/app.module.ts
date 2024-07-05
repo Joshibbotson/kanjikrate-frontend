@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { AppComponent } from './app.component';
-import { SignupModule } from './auth/signup/signup.module';
+import { SignupModule } from './features/auth/signup/signup.module';
+import { DashboardModule } from './features/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [],

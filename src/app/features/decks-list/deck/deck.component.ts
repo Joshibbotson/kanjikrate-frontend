@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { DeckCardComponent } from '../ui/deck-card/deckCard.component';
-import { Deck, DeckService } from '../api';
+
 import { ActivatedRoute } from '@angular/router';
 import { catchError } from 'rxjs';
-import { ButtonComponent } from "../ui/button/button.component";
+import { Deck, DeckService } from '../../../api';
+import { ButtonComponent } from '../../../ui/button/button.component';
+import { DeckCardComponent } from '../../../ui/deck-card/deckCard.component';
 
 @Component({
     selector: 'app-deck',
@@ -18,12 +19,12 @@ export class DeckComponent {
     private readonly deckService: DeckService,
     private readonly activatedRoute: ActivatedRoute
   ) {
-    this.fetchDeckById();
+    const id = this.activatedRoute.snapshot.params['id'];
+    this.fetchDeckById(id);
   }
 
   // in general we need some kind of loading mechanism
-  private fetchDeckById() {
-    const id = this.activatedRoute.snapshot.params['id'];
+  private fetchDeckById(id:string) {
     console.log(id);
     this.deckService
       .readDeckById(id)

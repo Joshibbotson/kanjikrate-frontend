@@ -1,8 +1,8 @@
 import { Component, computed, signal } from '@angular/core';
 import { ButtonComponent } from '../../ui/button/button.component';
-import { LocalAuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LocalAuthService } from '../../features/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',

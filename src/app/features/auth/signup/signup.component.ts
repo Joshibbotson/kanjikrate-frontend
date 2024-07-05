@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../ui/button/button.component';
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +7,8 @@ import {
 } from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { UserService } from '../../api/api/user.service';
+import { UserService } from '../../../api';
+import { ButtonComponent } from '../../../ui/button/button.component';
 
 @Component({
   selector: 'app-signup',

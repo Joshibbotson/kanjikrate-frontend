@@ -1,12 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
-import { SignupComponent } from './auth/signup/signup.component';
 import { NgModule } from '@angular/core';
-import { AuthGuardService } from './auth/auth-guard.guard';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './auth/login/login.component';
+import { AuthGuardService } from './features/auth/auth-guard.guard';
+import { LoginComponent } from './features/auth/login/login.component';
+import { SignupComponent } from './features/auth/signup/signup.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { DeckComponent } from './features/decks-list/deck/deck.component';
+import { DecksListComponent } from './features/decks-list/decks-list.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { DecksListComponent } from './decks-list/decks-list.component';
-import { DeckComponent } from './deck/deck.component';
+import { RevisionSessionComponent } from './features/revision-session/revisionSession.component';
 
 export const routes: Routes = [
   {
@@ -18,18 +19,6 @@ export const routes: Routes = [
     title: 'login',
     path: 'login',
     component: LoginComponent,
-  },
-  {
-    title: 'dashboard',
-    path: '',
-    component: MainLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: DashboardComponent,
-        canActivate: [AuthGuardService],
-      },
-    ],
   },
   {
     title: 'dashboard',
@@ -58,8 +47,18 @@ export const routes: Routes = [
         component: DeckComponent,
         canActivate: [AuthGuardService],
       },
+      {
+        path: ':id/revision-session/:cardId',
+        component: RevisionSessionComponent,
+        canActivate: [AuthGuardService],
+      },
     ],
   },
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+  },
+
 ];
 
 @NgModule({

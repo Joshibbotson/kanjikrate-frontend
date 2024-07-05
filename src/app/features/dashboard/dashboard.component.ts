@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DeckCardComponent } from '../ui/deck-card/deckCard.component';
+import { DeckCardComponent } from '../../ui/deck-card/deckCard.component';
 
 @Component({
   selector: 'app-dashboard',
