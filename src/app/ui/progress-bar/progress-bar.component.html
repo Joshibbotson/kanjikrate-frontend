@@ -1,0 +1,15 @@
+<div class="info">
+  @if (title()) {
+  <p>{{ title() }}</p>
+  }
+  <p>{{ totalProgressPercentage() }}%</p>
+</div>
+<div class="progress-bar-wrapper">
+  @for (bar of totalSizeArray(); track $index) {
+  <div
+    [class]="$index <= totalProgress() ? 'bar progress-bar' : 'bar'"
+    [ngStyle]="{ width: totalProgressPercentage() + '%' }"
+  ></div>
+
+  }
+</div>

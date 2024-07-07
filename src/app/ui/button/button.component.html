@@ -1,1 +1,3 @@
-<button [disabled]="disabled()">{{ title() }}</button>
+<button [disabled]="disabled()" [class]="classSize() + ' ' + classColour()">
+  {{ title() }}
+</button>

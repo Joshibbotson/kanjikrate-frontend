@@ -18,7 +18,7 @@ export class DecksListComponent {
   public totalDecks = 100;
   public pageSize = 10;
   public currentPage = 0;
-
+  public loading: boolean = true;
   constructor(
     private readonly _deckService: DeckService,
     private readonly localAuthService: LocalAuthService
@@ -39,15 +39,19 @@ export class DecksListComponent {
         take: size,
         skip: page * size,
       })
-      .pipe(
-        catchError((err) => {
-          throw new Error(err);
-        })
-      )
-      .subscribe((res) => {
-        console.log(res);
-        this.decksData = res.data;
-        this.totalDecks = res.totalCount || 0;
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.decksData = res.data;
+          this.totalDecks = res.totalCount || 0;
+        },
+        error: (err) => {
+          console.error('Subscription error:', err);
+          this.decksData = [];
+        },
+        complete: () => {
+          this.loading = false;
+        },
       });
   }
 

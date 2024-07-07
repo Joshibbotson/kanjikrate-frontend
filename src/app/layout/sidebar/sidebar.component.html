@@ -4,7 +4,13 @@
 
   <h2>Welcome {{ username() }}</h2>
   }
+  <div class="links-container">
+    <a [routerLink]="['/dashboard']" [routerLinkActive]="'active-link'"
+      >Dashboard</a
+    >
+    <a [routerLink]="['/decks']" [routerLinkActive]="'active-link'">Decks</a>
+  </div>
 </div>
 <div class="bottom-container">
-  <CommonButton (click)="handleLogout()" title="Logout" />
+  <common-button (click)="handleLogout()" title="Logout" />
 </div>

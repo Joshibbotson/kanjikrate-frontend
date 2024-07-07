@@ -1,13 +1,13 @@
 @import "../../../styles.scss";
 
 button {
-  border: none;
+  outline: none;
   width: 100%;
+  border: none;
   border-radius: 4px;
   padding: 0.5rem;
   font-weight: 500;
-  color: white;
-  background-color: $tertiaryColour;
+
   transition: all 250ms;
   cursor: pointer;
 }
@@ -27,4 +27,47 @@ button:disabled {
 button:disabled:hover {
   color: white;
   background-color: $tertiaryColour;
+}
+
+.large-btn {
+  width: 10rem;
+}
+
+.med-btn {
+  width: 7.5rem;
+}
+
+.small-btn {
+  width: 4rem;
+}
+
+.success-btn {
+  background-color: $tertiaryColour;
+  color: white;
+}
+.success-btn:hover {
+  color: $tertiaryColour;
+  background-color: white;
+  outline: 1px solid $tertiaryColour;
+}
+
+.warning-btn {
+  background-color: $warningColour;
+  color: white;
+}
+.warning-btn:hover {
+  color: $warningColour;
+  background-color: white;
+  outline: 1px solid $warningColour;
+}
+
+.danger-btn {
+  background-color: $dangerColour;
+  color: white;
+}
+
+.danger-btn:hover {
+  background-color: white;
+  color: $dangerColour;
+  outline: 1px solid $dangerColour;
 }

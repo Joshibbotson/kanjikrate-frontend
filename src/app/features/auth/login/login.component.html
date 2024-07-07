@@ -12,7 +12,7 @@
         placeholder="password..."
       />
     </div>
-    <CommonButton
+    <common-button
       [disabled]="!loginForm.valid && enableLoginBtn"
       (click)="login()"
       title="Login"
@@ -25,7 +25,7 @@
     <div class="wrapper">
       <p>or</p>
     </div>
-    <CommonButton title="Continue with Google" />
+    <common-button title="Continue with Google" />
     <span>
       <p>Don't have an account yet?</p>
       <a href="/signup">Sign up</a>

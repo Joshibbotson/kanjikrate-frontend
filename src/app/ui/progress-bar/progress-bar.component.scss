@@ -1,0 +1,25 @@
+@import "../../../styles.scss";
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: -0.5rem;
+  color: $grey;
+}
+
+.progress-bar-wrapper {
+  display: flex;
+
+  width: 25rem;
+  border-radius: 0.3rem;
+  overflow: hidden;
+
+  .bar {
+    height: 1.5rem;
+    background-color: $offWhite;
+  }
+
+  .bar.progress-bar {
+    background-color: $tertiaryColour;
+  }
+}

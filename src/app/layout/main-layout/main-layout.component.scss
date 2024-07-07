@@ -12,10 +12,10 @@
 @media (min-width: 769px) {
   .container {
     flex-direction: row;
-    
-    .content {
 
-    width: 100%;
+    .content {
+      // width: 100%;
+      flex-grow: 1;
     }
   }
 }

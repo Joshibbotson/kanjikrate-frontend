@@ -1,0 +1,59 @@
+@import "../../../../styles.scss";
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .deck-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: $boxShadow;
+    border-radius: 0.5rem;
+    width: 20rem;
+    height: 20rem;
+    overflow: hidden;
+
+    button {
+      display: flex;
+      align-items: center;
+      height: 10rem;
+      width: 10rem;
+      text-align: center;
+      border: none;
+      border-radius: 50%;
+      padding: 2rem;
+
+      background: none;
+      font-size: 1.2rem;
+      font-weight: 500;
+      background-color: $tertiaryColour;
+      color: white;
+
+      transition: 500ms;
+    }
+
+    button:hover {
+      background-color: white;
+      color: $tertiaryColour;
+      border: 1px solid $tertiaryColour;
+      transform: scale(4);
+    }
+
+    button:active {
+      transition: 250ms;
+      transform: scale(3);
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  main {
+    .deck-container {
+      width: 32.5rem;
+      height: 32.5rem;
+    }
+  }
+}

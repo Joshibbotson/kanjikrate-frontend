@@ -1,0 +1,17 @@
+<main>
+  <div class="container">
+    @if (cardData) {
+    <app-deck-card [front]="cardData.front" [back]="cardData.back" />
+
+    }
+    <div class="bottom-container">
+      <common-button
+        title="Forgot :("
+        [size]="btnSize.MEDIUM"
+        [colour]="btnColour.DANGER"
+      />
+      <common-button title="Remembered :)" [size]="btnSize.MEDIUM" />
+    </div>
+    <app-progress-bar title="Progress" [totalSize]="50" [totalProgress]="25" />
+  </div>
+</main>
