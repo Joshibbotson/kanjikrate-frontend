@@ -5,11 +5,9 @@
   <p>{{ totalProgressPercentage() }}%</p>
 </div>
 <div class="progress-bar-wrapper">
-  @for (bar of totalSizeArray(); track $index) {
   <div
-    [class]="$index <= totalProgress() ? 'bar progress-bar' : 'bar'"
+    [class]="'bar progress-bar'"
     [ngStyle]="{ width: totalProgressPercentage() + '%' }"
   ></div>
 
-  }
 </div>

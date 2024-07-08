@@ -19,10 +19,17 @@ export class AuthGuardService {
         this.router.navigate(['/login']);
         return resolve(false);
       }
-      this.authService.validateToken(token).subscribe((tkn) => {
-        if (tkn.success) {
-          resolve(true);
-        } else {
+      this.authService.validateToken(token).subscribe({
+        next: (tkn) => {
+          if (tkn.success) {
+            resolve(true);
+          } else {
+            this.authService.logout();
+            this.router.navigate(['/login']);
+            resolve(false);
+          }
+        },
+        error: (err) => {
           this.authService.logout();
           this.router.navigate(['/login']);
           resolve(false);

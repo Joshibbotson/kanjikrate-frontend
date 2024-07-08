@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, input, signal } from '@angular/core';
 
 export enum ECardFace {
   FRONT,
@@ -12,10 +12,16 @@ export enum ECardFace {
   templateUrl: './deckCard.component.html',
   styleUrl: './deckCard.component.scss',
 })
-export class DeckCardComponent {
+export class DeckCardComponent implements OnChanges {
   public readonly front = input.required<string>();
   public readonly back = input.required<string>();
   currentShowingFace = signal(ECardFace.FRONT);
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['front']){
+      this.currentShowingFace.set(ECardFace.FRONT)
+    }
+  }
 
   toggleCardFace() {
     switch (this.currentShowingFace()) {

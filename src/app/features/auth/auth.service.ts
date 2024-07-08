@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { User } from '../../api';
+import { AuthService, User } from '../../api';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class LocalAuthService {
   private token: string | null = null;
   private user: Partial<User> | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   public validateToken(token: string) {
     const requestBody = { token };

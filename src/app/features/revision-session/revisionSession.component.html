@@ -9,9 +9,12 @@
         title="Forgot :("
         [size]="btnSize.LARGE"
         [colour]="btnColour.DANGER"
+        (click)="nextCard(answer.FORGOT)"
       />
-      <common-button title="Remembered :)" [size]="btnSize.LARGE" />
+      <common-button title="Remembered :)" 
+      [size]="btnSize.LARGE"
+       (click)="nextCard(answer.REMEMBER)" />
     </div>
-    <app-progress-bar title="Progress" [totalSize]="50" [totalProgress]="25" />
+    <app-progress-bar title="Progress" [totalSize]="sessionLength()" [totalProgress]="sessionProgress()"  />
   </div>
 </main>

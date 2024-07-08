@@ -12,14 +12,16 @@
   width: 20rem;
   border-radius: 0.3rem;
   overflow: hidden;
+  background-color: $offWhite;
 
   .bar {
     height: 1.5rem;
     background-color: $offWhite;
   }
 
-  .bar.progress-bar {
+  .progress-bar {
     background-color: $tertiaryColour;
+    transition: width 250ms ease;
   }
 }
 

@@ -12,7 +12,7 @@
     <common-button
       title="Start new session"
       [size]="btnSize.FULLWIDTH"
-      [routerLink]="['/decks' + deckInfo()._id + '/revision-session']"
+     (click)="startNewRevSession()"
     />
   </div>
 </div>

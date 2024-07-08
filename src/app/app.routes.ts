@@ -9,7 +9,7 @@ export const routes: Routes = [
   ...dashboardRoutes,
   ...deckRoutes,
   {
-    path: '*',
+    path: '**',
     redirectTo: 'dashboard',
   },
 ];

@@ -9,4 +9,14 @@
   width: 15rem;
   border-radius: 10px;
   box-shadow: $boxShadow;
+  cursor: pointer;
+  transition: all 250ms;
 }
+
+.card:hover{
+  box-shadow: $boxShadowHover;
+  outline: 1px solid black;
+}
+
+.card:active {
+transform: rotateY(90deg);}

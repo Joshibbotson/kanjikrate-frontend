@@ -6,9 +6,9 @@ import {
   HttpEvent,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LocalAuthService } from './auth.service'; // Adjust the path as necessary
+import { LocalAuthService } from './auth.service';
 
-// make this work, we need to pass the backend our token.
+
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
@@ -16,7 +16,6 @@ export const authInterceptor: HttpInterceptorFn = (
   console.log('authInterceptor');
   const authService = inject(LocalAuthService);
   const token = authService.getToken();
-  console.log(token);
 
   if (token) {
     const cloned = req.clone({
@@ -24,9 +23,9 @@ export const authInterceptor: HttpInterceptorFn = (
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('Cloned Request Headers:', cloned.headers); // Log the Authorization header
     return next(cloned);
   } else {
+    authService.logout()
     return next(req);
   }
 };
