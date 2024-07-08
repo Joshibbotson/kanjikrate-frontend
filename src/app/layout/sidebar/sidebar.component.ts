@@ -3,11 +3,18 @@ import { ButtonComponent } from '../../ui/button/button.component';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LocalAuthService } from '../../features/auth/auth.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, RouterLink, RouterLinkActive],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+    MatIconModule,
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })

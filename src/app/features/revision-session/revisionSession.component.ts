@@ -9,11 +9,8 @@ import {
   EBtnSize,
 } from '../../ui/button/button.component';
 import { ProgressBarComponent } from '../../ui/progress-bar/progress-bar.component';
+import { Answer } from '../../services/review-session.service';
 
-enum Answer {
-  REMEMBER,
-  FORGOT,
-}
 @Component({
   selector: 'app-revision-session',
   standalone: true,
@@ -24,6 +21,7 @@ enum Answer {
 /**
  * So here we want to access localstorage for say cardIds
  * and current index, iterate forward
+ * Make into service
  */
 export class RevisionSessionComponent {
   public cardData: Card | null = null;

@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public errorMessage: string | null = null;
   public enableLoginBtn = true;
+  public loading = true;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -56,27 +57,22 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public login() {
     this.enableLoginBtn = false;
-    this.authService
-      .login(this.loginForm.value)
-      .pipe(
-        catchError((error: any) => {
-          this.enableLoginBtn = true;
-          this.errorMessage = error.error.error || 'An unknown error occurred!';
-          return throwError(() => error);
-        })
-      )
-      .subscribe({
-        next: (res) => {
-          if (res.token && res.user) {
-            localStorage.setItem('token', res.token);
-            localStorage.setItem('user', JSON.stringify(res.user));
-            this.router.navigate(['/dashboard']);
-          }
-        },
-        error: (err) => {
-          this.enableLoginBtn = true;
-          console.error('An error occurred:', err);
-        },
-      });
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res) => {
+        if (res.token && res.user) {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('user', JSON.stringify(res.user));
+          this.router.navigate(['/dashboard']);
+        }
+      },
+      error: (err) => {
+        this.enableLoginBtn = true;
+        this.loading = false;
+        console.error('An error occurred:', err);
+      },
+      complete: () => {
+        this.loading = false;
+      },
+    });
   }
 }

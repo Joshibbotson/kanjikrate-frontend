@@ -1,7 +1,18 @@
-<div
-  class="card"
-  [routerLink]="['/decks', deckInfo()._id]"
-  routerLinkActive="router-link-active"
->
-  <h1>{{ deckInfo().name }}</h1>
+<div class="card">
+  <div class="top-container">
+    <h1>{{ deckInfo().name }}</h1>
+  </div>
+  <div class="bottom-container">
+    <common-button
+      title="Info"
+      [size]="btnSize.FULLWIDTH"
+      [colour]="btnColour.INFO"
+      [routerLink]="['/decks', deckInfo()._id]"
+    />
+    <common-button
+      title="Start new session"
+      [size]="btnSize.FULLWIDTH"
+      [routerLink]="['/decks' + deckInfo()._id + '/revision-session']"
+    />
+  </div>
 </div>

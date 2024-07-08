@@ -11,6 +11,7 @@ export enum EBtnColourScheme {
   SUCCESS = 'sucess',
   DANGER = 'danger',
   WARNING = 'warning',
+  INFO = 'info',
 }
 
 @Component({
@@ -47,6 +48,8 @@ export class ButtonComponent {
         return 'danger-btn';
       case EBtnColourScheme.WARNING:
         return 'warning-btn';
+      case EBtnColourScheme.INFO:
+        return 'info-btn';
       default:
         return '';
     }
