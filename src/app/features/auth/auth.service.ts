@@ -1,34 +1,44 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { AuthService, User } from '../../api';
+import { AuthService, CreateUserDto, ILoginOpts, User, UserService } from '../../api';
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalAuthService {
-  private apiUrl = environment.apiUrl;
   private token: string | null = null;
   private user: Partial<User> | null = null;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private authService: AuthService, private userService: UserService) {}
+
+  public login(opts:ILoginOpts) {
+    return this.authService.login(opts)
+    .pipe(tap((res) => {
+      const {token, user} = res
+      if (token && user ) {
+        this.setData(token, user)
+      }
+     })
+    )
+  }
+
+  public async signUp(opts:CreateUserDto) {
+    return this.userService.createUser(opts)
+    .pipe(
+      tap((res) => {
+        const {token, data} = res
+        if (token && data ) {
+          this.setData(token, data)
+        }
+      })
+    )  
+  }
 
   public validateToken(token: string) {
     const requestBody = { token };
-    return this.http.post<any>(
-      `${this.apiUrl}/auth/validateToken`,
-      requestBody
-    );
+    return this.authService.validateToken(requestBody)
   }
 
-  public registerUser(opts: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/user/create`, opts);
-  }
-
-  public login(opts: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/login`, opts);
-  }
 
   public getToken(): string | null {
     if (!this.token) {
@@ -48,5 +58,10 @@ export class LocalAuthService {
   public logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+  }
+
+  private setData(token: string, user: Partial<User>){
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 }

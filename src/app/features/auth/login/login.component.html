@@ -1,6 +1,8 @@
 <div class="main-container">
+  
   <div class="central-card" [formGroup]="loginForm">
-    <img src="../../../assets/kanjikrateicon.png" width="5rem" height="5rem" />
+   
+    <img src="/kanjikrateicon.png" width="5rem" height="5rem" />
     <h1>Login to KanjiKrate</h1>
     <div class="input-wrapper">
       <input type="text" formControlName="email" placeholder="email..." />
@@ -12,6 +14,11 @@
         placeholder="password..."
       />
     </div>
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    } @else {
+      <mat-progress-bar style="opacity: 0;" mode="indeterminate"></mat-progress-bar>
+    }
     <common-button
       [disabled]="!loginForm.valid && enableLoginBtn"
       (click)="login()"

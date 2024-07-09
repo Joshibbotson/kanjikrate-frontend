@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { catchError } from 'rxjs';
-import { Deck, DeckService } from '../../../api';
+import { CardService, Deck, DeckService } from '../../../api';
 import { ButtonComponent } from '../../../ui/button/button.component';
 import { DeckCardComponent } from '../../../ui/deck-card/deckCard.component';
 
@@ -17,6 +17,7 @@ export class DeckComponent {
   public deckData: Deck | undefined;
   constructor(
     private readonly deckService: DeckService,
+    private readonly cardService: CardService,
     private readonly activatedRoute: ActivatedRoute
   ) {
     const id = this.activatedRoute.snapshot.params['id'];

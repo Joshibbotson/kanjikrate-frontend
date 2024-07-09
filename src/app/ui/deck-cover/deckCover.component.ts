@@ -4,7 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ButtonComponent } from '../button/button.component';
 import { EBtnSize } from '../button/button.component';
 import { EBtnColourScheme } from '../button/button.component';
-import { ReviewSessionService } from '../../services/review-session.service';
+import { ReviewSessionService } from '../../features/revision-session/review-session.service';
 @Component({
   selector: 'app-deck-cover',
   standalone: true,

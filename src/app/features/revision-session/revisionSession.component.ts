@@ -9,8 +9,19 @@ import {
   EBtnSize,
 } from '../../ui/button/button.component';
 import { ProgressBarComponent } from '../../ui/progress-bar/progress-bar.component';
-import { Answer, ReviewSessionService } from '../../services/review-session.service';
+import { Answer, ReviewSessionService } from './review-session.service';
 import { timer } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+enum Grades {
+  BAD = 1,
+  OKAY = 2,
+  GOOD = 3,
+  GREAT = 4 ,
+  PERFECT = 5
+}
+
+
 @Component({
   selector: 'app-revision-session',
   standalone: true,
@@ -18,11 +29,6 @@ import { timer } from 'rxjs';
   styleUrl: './revisionSession.component.scss',
   imports: [DeckCardComponent, ButtonComponent, ProgressBarComponent],
 })
-/**
- * So here we want to access localstorage for say cardIds
- * and current index, iterate forward
- * Make into service
- */
 export class RevisionSessionComponent implements OnDestroy {
   public cardData: Card | null = null;
   public readonly btnSize = EBtnSize;
@@ -32,13 +38,23 @@ export class RevisionSessionComponent implements OnDestroy {
   public sessionProgress = signal<number>(0)
   public timer$: Subscription | undefined
   private timerRunning = false;
-  private scoreMultiplier = 0;
+  private seconds = 0;
   private routeSub: Subscription | undefined;
+  public loading = true;
+  public errorMsg:string | undefined;
+  private gradesMap: { [key: number]: string } = {
+    [Grades.BAD]: 'Oh no :(',
+    [Grades.OKAY]: 'Okay!',
+    [Grades.GOOD]: 'Good!',
+    [Grades.GREAT]: 'Great!',
+    [Grades.PERFECT]: 'Perfect!'
+  };
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly cardService: CardService,
     private readonly reviewSessionsService:ReviewSessionService,
-    private readonly router:Router
+    private readonly router:Router,
+    private _snackBar: MatSnackBar
   ) {
     this.initProgressBarValues()
     this.routeSub = this.activatedRoute.params.subscribe((params) => {
@@ -61,7 +77,7 @@ export class RevisionSessionComponent implements OnDestroy {
     if(!this.timerRunning){
       const newTimer = timer(0, 1000)
       this.timer$ = newTimer.subscribe(n => {
-        const data =  this.scoreMultiplier = n
+        const data =  this.seconds = n
       })
       
       this.timerRunning = true
@@ -100,33 +116,80 @@ export class RevisionSessionComponent implements OnDestroy {
       });
   }
 
-  // setup review card route that accepts a score
-  private async reviewCard(answer: Answer) {
-    const score = answer * this.scoreMultiplier
+
+  public async reviewCard(answer: Answer) {
+    this.stopTimer()
+    const score = this.calculateGrade(answer,this.seconds)
+    if(this.cardData){
+     await this.cardService.reviewCardById(this.cardData?._id, {score})
+      .subscribe(
+        {
+          next: ((res) => {
+            this.openSnackBar(score)
+
+            if(res.success){
+              const currCardIndex = this.reviewSessionsService.getCurrCardIndex
+              const cardIdsLength = this.reviewSessionsService.getLocalStorageCardIdsLength 
+              if (cardIdsLength === null){
+                return
+              }
+              if(currCardIndex !== null && currCardIndex + 1 > cardIdsLength){
+                return
+              }
+              if(currCardIndex !== null){
+                const newIndex = currCardIndex + 1
+                this.reviewSessionsService.updateCurrentIndex(newIndex)
+                this.sessionProgress.set(this.sessionProgress() + 1)
+                const nextCardId = this.reviewSessionsService.getCardIdByIndex(newIndex)
+                if(nextCardId !== null){
+                  this.router.navigate(['decks', this.cardData?.deck, 'revision-session', nextCardId])
+                  this.fetchCardById(nextCardId)
+                }
+              }
+            }
+          }),
+          error:((err) => {
+            console.error('failed to review card with error of:',err)
+          }),
+
+          complete:(() => {
+            this.loading = false
+          })
+        }
+      )
+    }
+
   }
 
   public async nextCard(answer: Answer) {
-      this.stopTimer()
-    // send card for review first, ensure it succeeds before next card.
+    this.stopTimer()
+    await this.reviewCard(answer)
     const cardReview = await this.reviewCard(answer)
-    const currCardIndex = this.reviewSessionsService.getCurrCardIndex
-    const cardIdsLength = this.reviewSessionsService.getLocalStorageCardIdsLength 
-    if (cardIdsLength === null){
-      return
-    }
-    if(currCardIndex !== null && currCardIndex + 1 > cardIdsLength){
-      return
-    }
-    if(currCardIndex !== null){
-      const newIndex = currCardIndex + 1
-      this.reviewSessionsService.updateCurrentIndex(newIndex)
-      this.sessionProgress.set(this.sessionProgress() + 1)
-      const nextCardId = this.reviewSessionsService.getCardIdByIndex(newIndex)
-      if(nextCardId !== null){
+  }
 
-        this.router.navigate(['decks', this.cardData?.deck, 'revision-session', nextCardId])
-        this.fetchCardById(nextCardId)
-      }
+  private calculateGrade(answer:Answer, seconds:number){
+    if (answer === Answer.FORGOT) {
+      return Grades.BAD;
     }
+    if (seconds < 2) {
+      return Grades.PERFECT;
+    }
+    if (seconds >= 2 && seconds < 4) {
+      return Grades.GREAT;
+    }
+    if (seconds >= 4 && seconds < 6) {
+      return Grades.GOOD;
+    }
+    return Grades.OKAY;
+  }
+
+  public openSnackBar(grade:number){
+    
+    this._snackBar.open(`${this.cardData?.front} ${this.gradesMap[grade]}`, 'close', {
+      duration: 2500,
+      horizontalPosition: 'right',
+      verticalPosition: 'top', 
+    });
+
   }
 }

@@ -15,6 +15,11 @@
         placeholder="Password..."
       />
     </div>
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    } @else {
+      <mat-progress-bar style="opacity: 0;" mode="indeterminate"></mat-progress-bar>
+    }
     <common-button
       [disabled]="!signupForm.valid"
       (click)="signUp()"

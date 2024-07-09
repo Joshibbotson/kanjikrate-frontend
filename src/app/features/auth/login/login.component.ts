@@ -6,13 +6,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../api';
 import { ButtonComponent } from '../../../ui/button/button.component';
+import { LocalAuthService } from '../auth.service';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonComponent],
+  imports: [ReactiveFormsModule, ButtonComponent,MatProgressBarModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -21,10 +22,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public errorMessage: string | null = null;
   public enableLoginBtn = true;
-  public loading = true;
+  public loading = false;
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: LocalAuthService,
     private router: Router
   ) {
     this.loginForm = this.initFormGroup();
@@ -53,14 +54,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.login();
     }
   }
-
-  public login() {
+ 
+  public async login() {
     this.enableLoginBtn = false;
+    this.loading = true
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         if (res.token && res.user) {
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('user', JSON.stringify(res.user));
           this.router.navigate(['/dashboard']);
         }
       },

@@ -21,6 +21,8 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { ILoginOpts } from '../model/iLoginOpts';
 // @ts-ignore
+import { IValidateTokenOpts } from '../model/iValidateTokenOpts';
+// @ts-ignore
 import { Login200Response } from '../model/login200Response';
 // @ts-ignore
 import { Login401Response } from '../model/login401Response';
@@ -178,13 +180,17 @@ export class AuthService {
 
     /**
      * Validate Token
+     * @param iValidateTokenOpts 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public validateToken(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ValidateToken200Response>;
-    public validateToken(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ValidateToken200Response>>;
-    public validateToken(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ValidateToken200Response>>;
-    public validateToken(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public validateToken(iValidateTokenOpts: IValidateTokenOpts, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ValidateToken200Response>;
+    public validateToken(iValidateTokenOpts: IValidateTokenOpts, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ValidateToken200Response>>;
+    public validateToken(iValidateTokenOpts: IValidateTokenOpts, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ValidateToken200Response>>;
+    public validateToken(iValidateTokenOpts: IValidateTokenOpts, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (iValidateTokenOpts === null || iValidateTokenOpts === undefined) {
+            throw new Error('Required parameter iValidateTokenOpts was null or undefined when calling validateToken.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -211,6 +217,15 @@ export class AuthService {
         }
 
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -226,6 +241,7 @@ export class AuthService {
         return this.httpClient.request<ValidateToken200Response>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                body: iValidateTokenOpts,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

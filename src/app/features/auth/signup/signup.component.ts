@@ -7,27 +7,32 @@ import {
 } from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { UserService } from '../../../api';
 import { ButtonComponent } from '../../../ui/button/button.component';
+import { LocalAuthService } from '../auth.service';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ButtonComponent, ReactiveFormsModule],
+  imports: [ButtonComponent, ReactiveFormsModule, MatProgressBarModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
 export class SignupComponent {
   public readonly kanjiKrateIcon = '../../assets/kanjikrateicon.png';
   public signupForm: FormGroup;
+  public enableSignUpBtn = true;
+  public loading = false;
+
   constructor(
     private fb: FormBuilder,
-    private authService: UserService,
+    private authService: LocalAuthService,
     private router: Router
+    
   ) {
     this.signupForm = this.initFormGroup();
   }
-
+  
   private initFormGroup(): FormGroup {
     return this.fb.group({
       name: [''],
@@ -37,22 +42,21 @@ export class SignupComponent {
   }
 
   public async signUp() {
-    (await this.authService.createUser(this.signupForm.value))
-      .pipe(
-        catchError((error: any) => {
-          console.error('An error or occurred:', error);
-          return throwError(() => error);
-        })
-      )
-      .subscribe({
+    (await this.authService.signUp(this.signupForm.value)).subscribe(
+      {
         next: (res) => {
-          if (res.token) {
-            localStorage.setItem('token', res.token);
-            localStorage.setItem('user', JSON.stringify(res.data));
+          if (res.token && res.data) {
+            this.router.navigate(['/dashboard']);
           }
-          this.router.navigate(['/dashboard']);
         },
-        error: (err) => console.error(err),
-      });
+        error: (err) => {
+          this.enableSignUpBtn = true;
+          this.loading = false;
+          console.error('An error occurred:', err);
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      })
   }
 }

@@ -11,6 +11,8 @@ encoder.ts
 git_push.sh
 index.ts
 model/card.ts
+model/createCard200Response.ts
+model/createCard500Response.ts
 model/createCardDto.ts
 model/createDeck200Response.ts
 model/createDeck500Response.ts
@@ -20,6 +22,7 @@ model/createUser500Response.ts
 model/createUserDto.ts
 model/deck.ts
 model/iLoginOpts.ts
+model/iValidateTokenOpts.ts
 model/login200Response.ts
 model/login401Response.ts
 model/login404Response.ts
@@ -33,6 +36,9 @@ model/readDeckById200Response.ts
 model/readDeckById500Response.ts
 model/readUserById200Response.ts
 model/readUserById500Response.ts
+model/reviewCardById200Response.ts
+model/reviewCardById500Response.ts
+model/reviewCardDto.ts
 model/user.ts
 model/validateToken200Response.ts
 model/validateToken401Response.ts

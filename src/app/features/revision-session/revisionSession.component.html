@@ -6,14 +6,15 @@
     }
     <div class="bottom-container">
       <common-button
+        mat-stroked-button
         title="Forgot :("
         [size]="btnSize.LARGE"
         [colour]="btnColour.DANGER"
-        (click)="nextCard(answer.FORGOT)"
+        (click)="reviewCard(answer.FORGOT)"
       />
-      <common-button title="Remembered :)" 
+      <common-button mat-stroked-button title="Remembered :)" 
       [size]="btnSize.LARGE"
-       (click)="nextCard(answer.REMEMBER)" />
+       (click)="reviewCard(answer.REMEMBER)" />
     </div>
     <app-progress-bar title="Progress" [totalSize]="sessionLength()" [totalProgress]="sessionProgress()"  />
   </div>
