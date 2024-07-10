@@ -1,6 +1,8 @@
 <div class="main-container">
   <div class="central-card" [formGroup]="signupForm">
-    <img src="../../../assets/kanjikrateicon.png" width="5rem" height="5rem" />
+    <div class="logo-wrapper">
+      <img src="assets/kanjikrateicon.png" class="logo" />
+    </div>
     <h1>Sign up for KanjiKrate</h1>
     <div class="input-wrapper">
       <input type="text" formControlName="name" placeholder="Name..." />
@@ -16,9 +18,12 @@
       />
     </div>
     @if (loading) {
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     } @else {
-      <mat-progress-bar style="opacity: 0;" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar
+      style="opacity: 0"
+      mode="indeterminate"
+    ></mat-progress-bar>
     }
     <common-button
       [disabled]="!signupForm.valid"
