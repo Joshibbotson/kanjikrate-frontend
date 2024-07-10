@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, HostListener, computed, signal } from '@angular/core';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -19,15 +19,29 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
+
   private usernameSignal = signal<string | undefined>(
     this.localAuthService.User?.name
   );
   public readonly username = computed(() => this.usernameSignal());
-
+  public showSideBar = true
   constructor(
     private readonly localAuthService: LocalAuthService,
     private readonly router: Router
   ) {}
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    if(event.target){
+      if(event.target.innerWidth >= 769 ){
+        this.showSideBar = true
+      }
+    }
+  }
+
+  public toggleSideBar() {
+    this.showSideBar = !this.showSideBar
+  }
 
   public handleLogout() {
     this.localAuthService.logout();

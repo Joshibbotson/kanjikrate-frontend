@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { LocalAuthService } from '../auth/auth.service';
-import { catchError } from 'rxjs';
 import { DeckCoverComponent } from '../../ui/deck-cover/deckCover.component';
 import { User, Deck, DeckService } from '../../api';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { BreadCrumbsComponent } from '../../ui/bread-crumbs/bread-crumbs.component';
 
 @Component({
   selector: 'app-decks-list',
   standalone: true,
   templateUrl: './decks-list.component.html',
   styleUrl: './decks-list.component.scss',
-  imports: [MatPaginatorModule, DeckCoverComponent],
+  imports: [MatPaginatorModule, DeckCoverComponent, MatProgressBarModule, BreadCrumbsComponent],
 })
 export class DecksListComponent {
   public readonly user: Partial<User> | null;
@@ -18,7 +19,7 @@ export class DecksListComponent {
   public totalDecks = 100;
   public pageSize = 10;
   public currentPage = 0;
-  public loading: boolean = true;
+  public loading: boolean = false;
   constructor(
     private readonly _deckService: DeckService,
     private readonly localAuthService: LocalAuthService
@@ -32,6 +33,7 @@ export class DecksListComponent {
   }
 
   private fetchDecksByField(field: string, page: number, size: number) {
+    this.loading = true
     this._deckService
       .readDeckByField({
         field,

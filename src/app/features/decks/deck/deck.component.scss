@@ -5,6 +5,14 @@ main {
   flex-direction: column;
   align-items: center;
 
+  .flex-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
   .deck-container {
     display: flex;
     justify-content: center;
@@ -51,9 +59,14 @@ main {
 
 @media (min-width: 769px) {
   main {
-    .deck-container {
-      width: 32.5rem;
-      height: 32.5rem;
-    }
+    height: 100%;
+    overflow-y: auto;
+      .flex-box {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 3rem;
+        
+      }
   }
 }

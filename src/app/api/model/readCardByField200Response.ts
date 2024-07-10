@@ -9,12 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Card } from './card';
 
 
-export interface ReadDeckByField500Response { 
+export interface ReadCardByField200Response { 
     code?: number;
     success?: boolean;
     message?: string;
-    data?: object | null;
+    data?: Array<Card>;
+    totalCount?: number;
 }
 

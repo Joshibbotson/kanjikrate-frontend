@@ -15,6 +15,8 @@ export * from './login200Response';
 export * from './login401Response';
 export * from './login404Response';
 export * from './readByFieldDto';
+export * from './readCardByField200Response';
+export * from './readCardByField500Response';
 export * from './readCardById200Response';
 export * from './readCardById500Response';
 export * from './readDeckByField200Response';

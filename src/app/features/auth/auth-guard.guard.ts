@@ -21,6 +21,7 @@ export class AuthGuardService {
       }
       this.authService.validateToken(token).subscribe({
         next: (tkn) => {
+          console.log(tkn)
           if (tkn.success) {
             resolve(true);
           } else {
@@ -30,6 +31,7 @@ export class AuthGuardService {
           }
         },
         error: (err) => {
+          console.log("token error with:", err)
           this.authService.logout();
           this.router.navigate(['/login']);
           resolve(false);

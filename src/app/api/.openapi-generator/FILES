@@ -28,6 +28,8 @@ model/login401Response.ts
 model/login404Response.ts
 model/models.ts
 model/readByFieldDto.ts
+model/readCardByField200Response.ts
+model/readCardByField500Response.ts
 model/readCardById200Response.ts
 model/readCardById500Response.ts
 model/readDeckByField200Response.ts

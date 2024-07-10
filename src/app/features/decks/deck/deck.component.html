@@ -1,10 +1,32 @@
+@if (loading) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  } @else {
+  <mat-progress-bar
+    style="opacity: 0"
+    mode="indeterminate"
+  ></mat-progress-bar>
+  }
 <main>
   @if (deckData) {
   <h1>{{ deckData.name }}</h1>
   <p>{{ deckData.description }}</p>
-
-  <div class="deck-container">
-    <button>Start Training!</button>
-  </div>
   }
+  <mat-progress-bar
+  style="opacity: 0"
+  mode="indeterminate"
+  ></mat-progress-bar>
+
+  <mat-paginator
+  [length]="totalCards"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  aria-label="Select page"
+  (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+    <div class="flex-box">
+    @for (card of cardsData; track $index) {
+    <app-deck-card [front]="card.front" [back]="card.back" />
+    }
+    </div>
 </main>

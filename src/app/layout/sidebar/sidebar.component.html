@@ -1,18 +1,28 @@
-<div class="top-container">
-  <div class="circle"><i class="material-icons">person</i></div>
-  @if (username()) {
-
-  <h2>Welcome {{ username() }}</h2>
+<div class="burger-wrapper" (click)="toggleSideBar()">
+  @if (showSideBar) {
+    <i class="material-icons">close</i>
+  }@else {
+    <i class="material-icons">menu</i>
   }
-  <div class="links-container">
-    <a [routerLink]="['/dashboard']" [routerLinkActive]="'active-link'">
-      <i class="material-icons">home</i> Dashboard</a
-    >
-    <a [routerLink]="['/decks']" [routerLinkActive]="'active-link'">
-      <i class="material-icons">dashboard</i>Decks</a
-    >
-  </div>
 </div>
-<div class="bottom-container">
-  <common-button (click)="handleLogout()" title="Logout" />
-</div>
+@if (showSideBar) {
+    <div class="top-container">
+      <div class="circle">
+        <i class="material-icons">person</i>
+      </div>
+      @if (username()) {
+        <h2>Welcome {{ username() }}</h2>
+      }
+      <div class="links-container">
+        <a [routerLink]="['/dashboard']" [routerLinkActive]="'active-link'">
+          <i class="material-icons">home</i> Dashboard</a
+          >
+          <a [routerLink]="['/decks']" [routerLinkActive]="'active-link'">
+            <i class="material-icons">dashboard</i>Decks</a
+            >
+          </div>
+        </div>
+        <div class="bottom-container">
+          <common-button (click)="handleLogout()" title="Logout" />
+        </div>
+      }

@@ -11,7 +11,7 @@
  */
 
 
-export interface ReadDeckByField500Response { 
+export interface ReadCardByField500Response { 
     code?: number;
     success?: boolean;
     message?: string;

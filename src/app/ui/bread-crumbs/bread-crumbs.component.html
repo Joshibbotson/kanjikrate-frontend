@@ -1,0 +1,6 @@
+<div class="container">
+  @for ( url of urlParts(); track $index) {
+    <a [routerLink]="[url]"> {{url}} </a>
+    <i class="material-icons">chevron_right</i>
+  }
+</div>
