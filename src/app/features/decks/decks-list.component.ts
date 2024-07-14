@@ -1,31 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { LocalAuthService } from '../auth/auth.service';
 import { DeckCoverComponent } from '../../ui/deck-cover/deckCover.component';
 import { User, Deck, DeckService } from '../../api';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BreadCrumbsComponent } from '../../ui/bread-crumbs/bread-crumbs.component';
+import { IBreadCrumbsPart } from '../../ui/bread-crumbs/bread-crumbs.types';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-decks-list',
   standalone: true,
   templateUrl: './decks-list.component.html',
   styleUrl: './decks-list.component.scss',
-  imports: [MatPaginatorModule, DeckCoverComponent, MatProgressBarModule, BreadCrumbsComponent],
+  imports: [
+    MatPaginatorModule,
+    DeckCoverComponent,
+    MatProgressBarModule,
+    BreadCrumbsComponent,
+  ],
 })
-export class DecksListComponent {
+export class DecksListComponent implements OnInit {
   public readonly user: Partial<User> | null;
   public decksData: Deck[] | undefined;
   public totalDecks = 100;
   public pageSize = 10;
   public currentPage = 0;
   public loading: boolean = false;
+  public breadCrumbLinks: IBreadCrumbsPart[] = [
+    {
+      display: 'Decks',
+      link: '/decks',
+    },
+  ];
   constructor(
     private readonly _deckService: DeckService,
-    private readonly localAuthService: LocalAuthService
+    private readonly localAuthService: LocalAuthService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
   ) {
     this.user = this.User;
-    this.fetchDecksByField('owner', this.currentPage, this.pageSize);
+  }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      const skip = params['skip'];
+      const take = params['take'];
+      if (skip === undefined || take === undefined) {
+        this.updateQueryParams(this.currentPage, this.pageSize);
+      } else {
+        this.currentPage = skip ? +skip / this.pageSize : 0;
+        this.pageSize = take ? +take : 10;
+        this.fetchDecksByField('owner', this.currentPage, this.pageSize);
+      }
+    });
   }
 
   private get User() {
@@ -33,13 +61,15 @@ export class DecksListComponent {
   }
 
   private fetchDecksByField(field: string, page: number, size: number) {
-    this.loading = true
+    this.loading = true;
+    const { take, skip } = {
+      take: size,
+      skip: page * size,
+    };
     this._deckService
-      .readDeckByField({
+      .readDeckByField(take, skip, {
         field,
         objectId: this.user?._id,
-        take: size,
-        skip: page * size,
       })
       .subscribe({
         next: (res) => {
@@ -57,9 +87,25 @@ export class DecksListComponent {
       });
   }
 
+  private updateQueryParams(page: number, size: number) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { skip: page * size, take: size },
+      queryParamsHandling: 'merge',
+    });
+  }
+
   public onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        skip: this.currentPage * this.pageSize,
+        take: this.pageSize,
+      },
+      queryParamsHandling: 'merge',
+    });
     this.fetchDecksByField('owner', this.currentPage, this.pageSize);
   }
 }

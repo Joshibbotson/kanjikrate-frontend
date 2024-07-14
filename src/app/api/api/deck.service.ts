@@ -182,16 +182,34 @@ export class DeckService {
 
     /**
      * Read deck by field
+     * @param take 
+     * @param skip 
      * @param readByFieldDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public readDeckByField(readByFieldDto: ReadByFieldDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ReadDeckByField200Response>;
-    public readDeckByField(readByFieldDto: ReadByFieldDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ReadDeckByField200Response>>;
-    public readDeckByField(readByFieldDto: ReadByFieldDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ReadDeckByField200Response>>;
-    public readDeckByField(readByFieldDto: ReadByFieldDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public readDeckByField(take: number, skip: number, readByFieldDto: ReadByFieldDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ReadDeckByField200Response>;
+    public readDeckByField(take: number, skip: number, readByFieldDto: ReadByFieldDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ReadDeckByField200Response>>;
+    public readDeckByField(take: number, skip: number, readByFieldDto: ReadByFieldDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ReadDeckByField200Response>>;
+    public readDeckByField(take: number, skip: number, readByFieldDto: ReadByFieldDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (take === null || take === undefined) {
+            throw new Error('Required parameter take was null or undefined when calling readDeckByField.');
+        }
+        if (skip === null || skip === undefined) {
+            throw new Error('Required parameter skip was null or undefined when calling readDeckByField.');
+        }
         if (readByFieldDto === null || readByFieldDto === undefined) {
             throw new Error('Required parameter readByFieldDto was null or undefined when calling readDeckByField.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (take !== undefined && take !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>take, 'take');
+        }
+        if (skip !== undefined && skip !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>skip, 'skip');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -244,6 +262,7 @@ export class DeckService {
             {
                 context: localVarHttpContext,
                 body: readByFieldDto,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

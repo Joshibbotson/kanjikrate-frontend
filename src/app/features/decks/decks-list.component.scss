@@ -1,7 +1,12 @@
-.top-bar-container{
+.bread-crumbs-wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+.top-bar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 .flex-box {
@@ -12,9 +17,24 @@
   gap: 2rem;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
 @media (min-width: 769px) {
-  .flex-box {
+  main {
+    max-height: 87%;
+    overflow-y: auto;
     flex-direction: row;
-    justify-content: center;
+    .flex-box {
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      flex-direction: row;
+      gap: 3rem;
+    }
   }
 }

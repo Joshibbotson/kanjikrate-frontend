@@ -1,25 +1,25 @@
-@if (loading) {
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  } @else {
-  <mat-progress-bar
-    style="opacity: 0"
-    mode="indeterminate"
-  ></mat-progress-bar>
-  }
-  <div class="top-bar-container">
+<div class="bread-crumbs-wrapper">
+  <common-bread-crumbs [urlParts]="breadCrumbLinks" />
+</div>
 
-    <common-bread-crumbs [urlParts]="['decks']"/>
-    <mat-paginator
+<div class="top-bar-container">
+  <mat-paginator
     [length]="totalDecks"
     [pageSize]="pageSize"
     [pageSizeOptions]="[5, 10, 25, 100]"
     aria-label="Select page"
     (page)="onPageChange($event)"
-    >
+  >
   </mat-paginator>
 </div>
+<main>
+  @if (loading) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  } @else {
   <div class="flex-box">
     @for (deck of decksData; track $index) {
-  <app-deck-cover [deckInfo]="deck" />
+    <app-deck-cover [deckInfo]="deck" />
+    }
+  </div>
   }
-</div>
+</main>

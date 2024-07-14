@@ -3,7 +3,7 @@ import { MainLayoutComponent } from '../../layout/main-layout/main-layout.compon
 import { AuthGuardService } from '../auth/auth-guard.guard';
 import { RevisionSessionComponent } from '../revision-session/revisionSession.component';
 import { DeckComponent } from './deck/deck.component';
-import { DecksListComponent } from './decks.component';
+import { DecksListComponent } from './decks-list.component';
 
 export const deckRoutes: Routes = [
   {

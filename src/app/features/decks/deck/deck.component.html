@@ -1,32 +1,24 @@
-@if (loading) {
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  } @else {
-  <mat-progress-bar
-    style="opacity: 0"
-    mode="indeterminate"
-  ></mat-progress-bar>
-  }
-<main>
-  @if (deckData) {
-  <h1>{{ deckData.name }}</h1>
-  <p>{{ deckData.description }}</p>
-  }
-  <mat-progress-bar
-  style="opacity: 0"
-  mode="indeterminate"
-  ></mat-progress-bar>
-
+<div class="bread-crumbs-wrapper">
+  <common-bread-crumbs [urlParts]="breadCrumbLinks()" />
+</div>
+<div class="top-bar-container">
   <mat-paginator
-  [length]="totalCards"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[5, 10, 25, 100]"
-  aria-label="Select page"
-  (page)="onPageChange($event)"
+    [length]="totalCards"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page"
+    (page)="onPageChange($event)"
   >
   </mat-paginator>
-    <div class="flex-box">
+</div>
+<main>
+  @if (loading) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  } @else {
+  <div class="flex-box">
     @for (card of cardsData; track $index) {
     <app-deck-card [front]="card.front" [back]="card.back" />
     }
-    </div>
+  </div>
+  }
 </main>

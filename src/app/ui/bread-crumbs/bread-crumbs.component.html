@@ -1,6 +1,16 @@
 <div class="container">
   @for ( url of urlParts(); track $index) {
-    <a [routerLink]="[url]"> {{url}} </a>
-    <i class="material-icons">chevron_right</i>
-  }
+  <a
+    [routerLink]="'/' + [url.link]"
+    [class]="
+      $index === urlParts().length - 1
+        ? 'highlighted-url-part'
+        : 'unhighlighted-url-part'
+    "
+  >
+    {{ url.display }}
+  </a>
+  @if ($index !== urlParts().length - 1) {
+  <i class="material-icons">chevron_right</i>
+  } }
 </div>

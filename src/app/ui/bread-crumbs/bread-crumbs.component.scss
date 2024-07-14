@@ -1,5 +1,29 @@
-.container{
+@import "../../../styles.scss";
+
+.container {
   display: flex;
   align-items: center;
-  
+  justify-content: center;
+  gap: 0.4rem;
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover {
+    opacity: 0.5;
+  }
+
+  i {
+    font-size: 1.4rem;
+    color: $grey;
+  }
+
+  .highlighted-url-part {
+    color: black;
+  }
+
+  .unhighlighted-url-part {
+    color: $grey;
+  }
 }

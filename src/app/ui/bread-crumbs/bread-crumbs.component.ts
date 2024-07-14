@@ -1,6 +1,6 @@
-import { Component, input, } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
+import { IBreadCrumbsPart } from './bread-crumbs.types';
 
 @Component({
   selector: 'common-bread-crumbs',
@@ -10,6 +10,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './bread-crumbs.component.scss',
 })
 export class BreadCrumbsComponent {
-  public readonly urlParts = input.required<string[]>()
-
+  public readonly urlParts = input.required<IBreadCrumbsPart[]>();
 }

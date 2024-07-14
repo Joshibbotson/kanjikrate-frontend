@@ -1,18 +1,6 @@
 import { Component, computed, input } from '@angular/core';
-
-export enum EBtnSize {
-  FULLWIDTH = 'fullWidth',
-  LARGE = 'large',
-  MEDIUM = 'medium',
-  SMALL = 'small',
-}
-
-export enum EBtnColourScheme {
-  SUCCESS = 'sucess',
-  DANGER = 'danger',
-  WARNING = 'warning',
-  INFO = 'info',
-}
+import { EBtnColourScheme } from './enums/colour.enum';
+import { EBtnSize } from './enums/size.enum';
 
 @Component({
   selector: 'common-button',
@@ -40,6 +28,7 @@ export class ButtonComponent {
         return '';
     }
   });
+
   public classColour = computed(() => {
     switch (this.colour()) {
       case EBtnColourScheme.SUCCESS:
@@ -54,4 +43,8 @@ export class ButtonComponent {
         return '';
     }
   });
+
+  public get btnClass() {
+    return `${this.classSize()} ${this.classColour()}`;
+  }
 }

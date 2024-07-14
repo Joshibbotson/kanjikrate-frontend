@@ -1,3 +1,6 @@
+<div class="bread-crumbs-wrapper">
+  <common-bread-crumbs [urlParts]="breadCrumbLinks()" />
+</div>
 <main>
   <div class="container">
     @if (cardData) {
@@ -12,10 +15,17 @@
         [colour]="btnColour.DANGER"
         (click)="reviewCard(answer.FORGOT)"
       />
-      <common-button mat-stroked-button title="Remembered :)" 
-      [size]="btnSize.LARGE"
-       (click)="reviewCard(answer.REMEMBER)" />
+      <common-button
+        mat-stroked-button
+        title="Remembered :)"
+        [size]="btnSize.LARGE"
+        (click)="reviewCard(answer.REMEMBER)"
+      />
     </div>
-    <app-progress-bar title="Progress" [totalSize]="sessionLength()" [totalProgress]="sessionProgress()"  />
+    <app-progress-bar
+      title="Progress"
+      [totalSize]="sessionLength()"
+      [totalProgress]="sessionProgress()"
+    />
   </div>
 </main>
