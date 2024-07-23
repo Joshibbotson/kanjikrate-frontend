@@ -32,6 +32,8 @@ model/readCardByField200Response.ts
 model/readCardByField500Response.ts
 model/readCardById200Response.ts
 model/readCardById500Response.ts
+model/readCardsForReview200Response.ts
+model/readCardsForReview500Response.ts
 model/readDeckByField200Response.ts
 model/readDeckByField500Response.ts
 model/readDeckById200Response.ts

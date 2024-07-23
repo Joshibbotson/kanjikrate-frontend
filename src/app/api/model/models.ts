@@ -19,6 +19,8 @@ export * from './readCardByField200Response';
 export * from './readCardByField500Response';
 export * from './readCardById200Response';
 export * from './readCardById500Response';
+export * from './readCardsForReview200Response';
+export * from './readCardsForReview500Response';
 export * from './readDeckByField200Response';
 export * from './readDeckByField500Response';
 export * from './readDeckById200Response';
