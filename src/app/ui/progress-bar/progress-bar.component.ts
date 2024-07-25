@@ -12,9 +12,6 @@ export class ProgressBarComponent {
   public title = input<string>();
   public totalSize = input.required<number>();
   public totalProgress = input.required<number>();
-  public totalSizeArray = computed(() => {
-    return Array.from({ length: this.totalSize() }, (_, i) => i + 1);
-  });
   public totalProgressPercentage = computed(() => {
     return Math.round((this.totalProgress() / this.totalSize()) * 100);
   });

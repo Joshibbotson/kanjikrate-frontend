@@ -110,7 +110,6 @@ export class RevisionSessionComponent implements OnDestroy {
   }
 
   private async fetchCardById(id: string) {
-    console.log(id);
     this.cardService
       .readCardById(id)
       .pipe(
@@ -144,6 +143,7 @@ export class RevisionSessionComponent implements OnDestroy {
                 return;
               }
               if (currCardIndex !== null && currCardIndex + 1 > cardIdsLength) {
+                console.log('Too long!');
                 return;
               }
               if (currCardIndex !== null) {

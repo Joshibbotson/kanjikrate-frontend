@@ -48,7 +48,7 @@ export class ReviewFrequencyBarchartComponent {
         { month: 'Nov', avgTemp: 8.9, iceCreamSales: 200000 },
       ],
       // Series: Defines which chart type and data to use
-      series: [{ type: 'bar', xKey: 'month', yKey: 'iceCreamSales' }],
+      series: [{ type: 'line', xKey: 'month', yKey: 'iceCreamSales' }],
     };
   }
 
