@@ -8,12 +8,12 @@ import {
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../ui/button/button.component';
 import { LocalAuthService } from '../auth.service';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonComponent,MatProgressBarModule],
+  imports: [ReactiveFormsModule, ButtonComponent, MatProgressBarModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -54,10 +54,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.login();
     }
   }
- 
+
   public async login() {
     this.enableLoginBtn = false;
-    this.loading = true
+    this.loading = true;
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         if (res.token && res.user) {
@@ -73,5 +73,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loading = false;
       },
     });
+  }
+
+  public onEnterKey(event: Event) {
+    if (this.loginForm.valid) {
+      event.preventDefault();
+      this.login();
+    }
   }
 }

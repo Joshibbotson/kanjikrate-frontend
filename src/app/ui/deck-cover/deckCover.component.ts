@@ -26,6 +26,7 @@ export class DeckCoverComponent {
   public startNewRevSession(): void {
     this.cardService.readCardsForReview(this.deckInfo()._id).subscribe({
       next: (res) => {
+        console.log('Cards for review:', res);
         const cardIds = res.data?.map((card) => card._id);
         if (cardIds && cardIds?.length > 0) {
           this.reviewSessionsService.storeCardIds(cardIds);

@@ -9,7 +9,7 @@ import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../ui/button/button.component';
 import { LocalAuthService } from '../auth.service';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-signup',
@@ -28,11 +28,10 @@ export class SignupComponent {
     private fb: FormBuilder,
     private authService: LocalAuthService,
     private router: Router
-    
   ) {
     this.signupForm = this.initFormGroup();
   }
-  
+
   private initFormGroup(): FormGroup {
     return this.fb.group({
       name: [''],
@@ -42,21 +41,27 @@ export class SignupComponent {
   }
 
   public async signUp() {
-    (await this.authService.signUp(this.signupForm.value)).subscribe(
-      {
-        next: (res) => {
-          if (res.token && res.data) {
-            this.router.navigate(['/dashboard']);
-          }
-        },
-        error: (err) => {
-          this.enableSignUpBtn = true;
-          this.loading = false;
-          console.error('An error occurred:', err);
-        },
-        complete: () => {
-          this.loading = false;
-        },
-      })
+    (await this.authService.signUp(this.signupForm.value)).subscribe({
+      next: (res) => {
+        if (res.token && res.data) {
+          this.router.navigate(['/dashboard']);
+        }
+      },
+      error: (err) => {
+        this.enableSignUpBtn = true;
+        this.loading = false;
+        console.error('An error occurred:', err);
+      },
+      complete: () => {
+        this.loading = false;
+      },
+    });
+  }
+
+  public onEnterKey(event: Event): void {
+    if (this.signupForm.valid) {
+      event.preventDefault();
+      this.signUp();
+    }
   }
 }

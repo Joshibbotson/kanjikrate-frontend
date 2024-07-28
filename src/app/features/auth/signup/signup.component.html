@@ -1,5 +1,10 @@
 <div class="main-container">
-  <div class="central-card" [formGroup]="signupForm">
+  <div
+    class="central-card"
+    [formGroup]="signupForm"
+    (ngSubmit)="signUp()"
+    (keydown.enter)="onEnterKey($event)"
+  >
     <div class="logo-wrapper">
       <img src="assets/kanjikrateicon.png" class="logo" />
     </div>
@@ -29,6 +34,7 @@
       [disabled]="!signupForm.valid"
       (click)="signUp()"
       title="Sign up"
+      type="submit"
     />
     <div class="wrapper">
       <p>or</p>
