@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { LocalAuthService } from '../auth/auth.service';
 import { DeckCoverComponent } from '../../ui/deck-cover/deckCover.component';
@@ -7,6 +7,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BreadCrumbsComponent } from '../../ui/bread-crumbs/bread-crumbs.component';
 import { IBreadCrumbsPart } from '../../ui/bread-crumbs/bread-crumbs.types';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CreateDeckdOutlineComponent } from './components/create-card-outline/create-deck-outline.component';
+import { DeckCreateComponent } from './components/deck-create/deck-create.component';
 
 @Component({
   selector: 'app-decks-list',
@@ -18,6 +20,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     DeckCoverComponent,
     MatProgressBarModule,
     BreadCrumbsComponent,
+    CreateDeckdOutlineComponent,
+    DeckCreateComponent,
   ],
 })
 export class DecksListComponent implements OnInit {
@@ -33,6 +37,8 @@ export class DecksListComponent implements OnInit {
       link: '/decks',
     },
   ];
+  public showCreateCard = signal<boolean>(false);
+
   constructor(
     private readonly _deckService: DeckService,
     private readonly localAuthService: LocalAuthService,
@@ -87,6 +93,10 @@ export class DecksListComponent implements OnInit {
       });
   }
 
+  toggleCreateCard() {
+    this.showCreateCard.set(!this.showCreateCard());
+  }
+
   private updateQueryParams(page: number, size: number) {
     this.router.navigate([], {
       relativeTo: this.route,
@@ -106,6 +116,14 @@ export class DecksListComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+    this.fetchDecksByField('owner', this.currentPage, this.pageSize);
+  }
+
+  closeCreateDeck() {
+    this.showCreateCard.set(false);
+  }
+  onSaveDeck() {
+    this.closeCreateDeck();
     this.fetchDecksByField('owner', this.currentPage, this.pageSize);
   }
 }

@@ -1,0 +1,42 @@
+<div class="card">
+  <h4>Create Deck</h4>
+  @if (!loading()) {
+
+  <div class="form-container" [formGroup]="formGroup">
+    <div class="input-wrapper">
+      <label>
+        Name:
+        <input type="text" formControlName="name" placeholder="Name..." />
+      </label>
+    </div>
+    <div class="input-wrapper">
+      <label>
+        Description:
+        <textarea
+          type="text"
+          formControlName="description"
+          placeholder="Description..."
+        ></textarea>
+      </label>
+    </div>
+  </div>
+  <div class="bottom-container">
+    <common-button
+      title="Cancel"
+      [size]="btnSize.FULLWIDTH"
+      [colour]="btnColour.INFO"
+      (click)="onCancelClick()"
+    />
+    <common-button
+      title="Save"
+      [size]="btnSize.FULLWIDTH"
+      (click)="onSaveClick()"
+    />
+  </div>
+  } @else{
+  <div class="form-container">
+    <mat-spinner />
+  </div>
+
+  }
+</div>

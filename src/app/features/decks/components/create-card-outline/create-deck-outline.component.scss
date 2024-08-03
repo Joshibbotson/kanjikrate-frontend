@@ -1,0 +1,45 @@
+@import "../../../../../styles.scss";
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 30rem;
+  width: 15rem;
+  border-radius: 10px;
+  outline: 5px dashed $offWhite;
+
+  i {
+    border-radius: 50%;
+    font-size: 5rem;
+    color: $offWhite;
+  }
+
+  transition: all 1s;
+}
+
+@keyframes scaleInAndOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.card:hover {
+  animation-name: scaleInAndOut;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  cursor: pointer;
+}
+
+.card:active {
+  transform: scale(1.05);
+}

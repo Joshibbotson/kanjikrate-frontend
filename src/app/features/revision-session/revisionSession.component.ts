@@ -12,6 +12,7 @@ import { EBtnColourScheme } from '../../ui/button/enums/colour.enum';
 import { EBtnSize } from '../../ui/button/enums/size.enum';
 import { BreadCrumbsComponent } from '../../ui/bread-crumbs/bread-crumbs.component';
 import { IBreadCrumbsPart } from '../../ui/bread-crumbs/bread-crumbs.types';
+import { EndCardComponent } from './components/end-card/end-card.component';
 
 enum Grades {
   BAD = 1,
@@ -31,6 +32,7 @@ enum Grades {
     ButtonComponent,
     ProgressBarComponent,
     BreadCrumbsComponent,
+    EndCardComponent,
   ],
 })
 export class RevisionSessionComponent implements OnDestroy {
@@ -41,11 +43,13 @@ export class RevisionSessionComponent implements OnDestroy {
   public sessionLength = signal<number>(0);
   public sessionProgress = signal<number>(0);
   public timer$: Subscription | undefined;
+  public loading = true;
+  public errorMsg: string | undefined;
+  public breadCrumbLinks = signal<IBreadCrumbsPart[]>([]);
+  public showEndCard = signal<boolean>(false);
   private timerRunning = false;
   private seconds = 0;
   private routeSub: Subscription | undefined;
-  public loading = true;
-  public errorMsg: string | undefined;
   private gradesMap: { [key: number]: string } = {
     [Grades.BAD]: 'Oh no :(',
     [Grades.OKAY]: 'Okay!',
@@ -53,7 +57,6 @@ export class RevisionSessionComponent implements OnDestroy {
     [Grades.GREAT]: 'Great!',
     [Grades.PERFECT]: 'Perfect!',
   };
-  public breadCrumbLinks = signal<IBreadCrumbsPart[]>([]);
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -139,11 +142,17 @@ export class RevisionSessionComponent implements OnDestroy {
               const currCardIndex = this.reviewSessionsService.getCurrCardIndex;
               const cardIdsLength =
                 this.reviewSessionsService.getLocalStorageCardIdsLength;
+              console.log('currIndex:', currCardIndex);
+              console.log('cardIdsLen:', cardIdsLength);
               if (cardIdsLength === null) {
                 return;
               }
-              if (currCardIndex !== null && currCardIndex + 1 > cardIdsLength) {
-                console.log('Too long!');
+              if (
+                currCardIndex !== null &&
+                currCardIndex + 1 === cardIdsLength
+              ) {
+                this.sessionProgress.set(this.sessionProgress() + 1);
+                this.showEndCard.set(true);
                 return;
               }
               if (currCardIndex !== null) {

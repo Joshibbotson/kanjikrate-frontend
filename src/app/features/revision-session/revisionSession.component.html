@@ -1,12 +1,14 @@
+@if (!showEndCard()) {
+
 <div class="bread-crumbs-wrapper">
   <common-bread-crumbs [urlParts]="breadCrumbLinks()" />
 </div>
+}
 <main>
   <div class="container">
-    @if (cardData) {
+    @if (cardData && !showEndCard()) {
     <app-deck-card [front]="cardData.front" [back]="cardData.back" />
 
-    }
     <div class="bottom-container">
       <common-button
         mat-stroked-button
@@ -27,5 +29,10 @@
       [totalSize]="sessionLength()"
       [totalProgress]="sessionProgress()"
     />
+    } @else if(!cardData && !showEndCard()) {
+    <p>No card data available</p>
+    } @else if (showEndCard()) {
+    <app-end-card />
+    }
   </div>
 </main>

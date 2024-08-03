@@ -17,7 +17,15 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   } @else {
   <div class="flex-box">
-    @for (deck of decksData; track $index) {
+    @if(!showCreateCard()){
+
+    <app-create-deck-outline (click)="toggleCreateCard()" />
+    } @else{
+    <app-deck-create
+      (cancelClick)="closeCreateDeck()"
+      (saveClick)="onSaveDeck()"
+    />
+    } @for (deck of decksData; track $index) {
     <app-deck-cover [deckInfo]="deck" />
     }
   </div>
