@@ -7,6 +7,8 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BreadCrumbsComponent } from '../../../ui/bread-crumbs/bread-crumbs.component';
 import { IBreadCrumbsPart } from '../../../ui/bread-crumbs/bread-crumbs.types';
+import { CardCreateComponent } from './components/card-create/card-create.component';
+import { CreateCardOutlineComponent } from './components/create-card-outline/create-card-outline.component';
 
 @Component({
   selector: 'app-deck',
@@ -19,6 +21,8 @@ import { IBreadCrumbsPart } from '../../../ui/bread-crumbs/bread-crumbs.types';
     MatProgressBarModule,
     MatPaginatorModule,
     BreadCrumbsComponent,
+    CardCreateComponent,
+    CreateCardOutlineComponent,
   ],
 })
 export class DeckComponent {
@@ -29,14 +33,21 @@ export class DeckComponent {
   public pageSize = 5;
   public currentPage = 0;
   public breadCrumbLinks = signal<IBreadCrumbsPart[]>([]);
+  public showCreateCard = signal<boolean>(false);
+  public deckId;
   constructor(
     private readonly deckService: DeckService,
     private readonly cardService: CardService,
     private readonly activatedRoute: ActivatedRoute
   ) {
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.fetchDeckById(id);
-    this.fetchCardsByField('deck', id, this.currentPage, this.pageSize);
+    this.deckId = this.activatedRoute.snapshot.params['id'];
+    this.fetchDeckById(this.deckId);
+    this.fetchCardsByField(
+      'deck',
+      this.deckId,
+      this.currentPage,
+      this.pageSize
+    );
   }
 
   private fetchCardsByField(
@@ -98,6 +109,23 @@ export class DeckComponent {
         this.pageSize
       );
     }
+  }
+
+  closeCreateDeck() {
+    this.showCreateCard.set(false);
+  }
+  onSaveDeck() {
+    this.closeCreateDeck();
+    this.fetchCardsByField(
+      'deck',
+      this.deckId,
+      this.currentPage,
+      this.pageSize
+    );
+  }
+
+  public toggleCreateCard() {
+    this.showCreateCard.set(!this.showCreateCard());
   }
 
   private initialiseBreadCrumbs(id: string) {

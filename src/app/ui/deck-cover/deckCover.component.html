@@ -4,7 +4,7 @@
   </div>
   <div class="bottom-container">
     <common-button
-      title="Info"
+      title="Cards"
       [size]="btnSize.FULLWIDTH"
       [colour]="btnColour.INFO"
       [routerLink]="['/decks', deckInfo()._id]"
@@ -12,7 +12,13 @@
     <common-button
       title="Start new session"
       [size]="btnSize.FULLWIDTH"
-     (click)="startNewRevSession()"
+      (click)="startNewRevSession()"
+    />
+    <common-button
+      title="Delete"
+      [size]="btnSize.FULLWIDTH"
+      [colour]="btnColour.DANGER"
+      (click)="deleteDeck(deckInfo()._id)"
     />
   </div>
 </div>

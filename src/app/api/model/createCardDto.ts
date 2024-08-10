@@ -25,6 +25,10 @@ export interface CreateCardDto {
      */
     back: string;
     /**
+     * The deckId the card belongs to
+     */
+    deck: object;
+    /**
      * The date the card was last reviewed
      */
     lastReviewed?: string;

@@ -1,5 +1,5 @@
-import { Component, InputSignal, input } from '@angular/core';
-import { CardService, Deck } from '../../api';
+import { Component, InputSignal, input, output } from '@angular/core';
+import { CardService, Deck, DeckService } from '../../api';
 import { Router, RouterLink } from '@angular/router';
 import { ButtonComponent } from '../button/button.component';
 
@@ -17,9 +17,11 @@ export class DeckCoverComponent {
   public readonly deckInfo: InputSignal<Deck> = input.required<Deck>();
   public readonly btnSize = EBtnSize;
   public readonly btnColour = EBtnColourScheme;
+  public handleDelete = output<void>();
   constructor(
     private readonly reviewSessionsService: ReviewSessionService,
     private readonly cardService: CardService,
+    private readonly deckService: DeckService,
     private readonly router: Router
   ) {}
 
@@ -49,7 +51,7 @@ export class DeckCoverComponent {
     });
   }
 
-  shuffleArray(arr: string[]) {
+  private shuffleArray(arr: string[]) {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       const temp = arr[i];
@@ -57,5 +59,13 @@ export class DeckCoverComponent {
       arr[j] = temp;
     }
     return arr;
+  }
+
+  public deleteDeck(id: string): void {
+    this.deckService.deleteDeckById(id).subscribe({
+      next: () => {
+        this.handleDelete.emit();
+      },
+    });
   }
 }

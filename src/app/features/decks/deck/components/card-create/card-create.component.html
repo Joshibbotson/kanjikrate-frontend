@@ -1,0 +1,38 @@
+<div class="card">
+  <h4>Create Card</h4>
+  @if (!loading()) {
+
+  <div class="form-container" [formGroup]="formGroup">
+    <div class="input-wrapper">
+      <label>
+        Front:
+        <input type="text" formControlName="front" placeholder="Front..." />
+      </label>
+    </div>
+    <div class="input-wrapper">
+      <label>
+        Back:
+        <input type="text" formControlName="back" placeholder="Back..." />
+      </label>
+    </div>
+  </div>
+  <div class="bottom-container">
+    <common-button
+      title="Cancel"
+      [size]="btnSize.FULLWIDTH"
+      [colour]="btnColour.INFO"
+      (click)="onCancelClick()"
+    />
+    <common-button
+      title="Save"
+      [size]="btnSize.FULLWIDTH"
+      (click)="onSaveClick()"
+    />
+  </div>
+  } @else{
+  <div class="form-container">
+    <mat-spinner />
+  </div>
+
+  }
+</div>

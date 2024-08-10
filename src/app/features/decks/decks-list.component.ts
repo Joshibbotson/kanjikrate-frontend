@@ -66,6 +66,10 @@ export class DecksListComponent implements OnInit {
     return this.localAuthService.User;
   }
 
+  public reloadPage() {
+    this.fetchDecksByField('owner', this.currentPage, this.pageSize);
+  }
+
   private fetchDecksByField(field: string, page: number, size: number) {
     this.loading = true;
     const { take, skip } = {
@@ -93,7 +97,7 @@ export class DecksListComponent implements OnInit {
       });
   }
 
-  toggleCreateCard() {
+  public toggleCreateCard() {
     this.showCreateCard.set(!this.showCreateCard());
   }
 

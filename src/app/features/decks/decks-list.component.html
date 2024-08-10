@@ -26,7 +26,7 @@
       (saveClick)="onSaveDeck()"
     />
     } @for (deck of decksData; track $index) {
-    <app-deck-cover [deckInfo]="deck" />
+    <app-deck-cover [deckInfo]="deck" (handleDelete)="reloadPage()" />
     }
   </div>
   }

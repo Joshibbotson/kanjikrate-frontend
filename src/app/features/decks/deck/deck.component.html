@@ -12,11 +12,21 @@
   </mat-paginator>
 </div>
 <main>
+  <h1>deck</h1>
   @if (loading) {
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   } @else {
   <div class="flex-box">
-    @for (card of cardsData; track $index) {
+    @if(!showCreateCard()){
+    <app-create-card-outline (click)="toggleCreateCard()" />
+    } @else {
+
+    <app-card-create
+      [deckId]="deckId"
+      (cancelClick)="closeCreateDeck()"
+      (saveClick)="onSaveDeck()"
+    />
+    } @for (card of cardsData; track $index) {
     <app-deck-card [front]="card.front" [back]="card.back" />
     }
   </div>

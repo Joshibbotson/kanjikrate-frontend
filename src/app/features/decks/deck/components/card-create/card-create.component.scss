@@ -1,0 +1,58 @@
+@import "../../../../../../styles.scss";
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 30rem;
+  width: 15rem;
+  border-radius: 10px;
+  outline: 5px solid $offWhite;
+
+  transition: outline 250ms;
+
+  h4 {
+    margin-top: 1rem;
+  }
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .bottom-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 5rem;
+    width: 90%;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .input-wrapper input[type="text"],
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid black;
+    padding: 0.4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 4px;
+  }
+
+  textarea {
+    height: 10rem;
+    resize: none;
+  }
+}
