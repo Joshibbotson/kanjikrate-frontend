@@ -7,11 +7,11 @@ import {
   signal,
 } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CardService, DeckService } from '../../../../../api';
-import { EBtnColourScheme } from '../../../../../ui/button/enums/colour.enum';
-import { EBtnSize } from '../../../../../ui/button/enums/size.enum';
-import { LocalAuthService } from '../../../../auth/auth.service';
-import { ButtonComponent } from '../../../../../ui/button/button.component';
+import { CardService, DeckService } from '../../../../api';
+import { EBtnColourScheme } from '../../../../ui/button/enums/colour.enum';
+import { EBtnSize } from '../../../../ui/button/enums/size.enum';
+import { LocalAuthService } from '../../../auth/auth.service';
+import { ButtonComponent } from '../../../../ui/button/button.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 

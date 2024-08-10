@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { MainLayoutComponent } from '../../layout/main-layout/main-layout.component';
 import { AuthGuardService } from '../auth/auth-guard.guard';
 import { RevisionSessionComponent } from '../revision-session/revisionSession.component';
-import { DeckComponent } from './deck/deck.component';
 import { DecksListComponent } from './decks-list.component';
 
 export const deckRoutes: Routes = [
@@ -14,11 +13,6 @@ export const deckRoutes: Routes = [
       {
         path: '',
         component: DecksListComponent,
-        canActivate: [AuthGuardService],
-      },
-      {
-        path: ':id',
-        component: DeckComponent,
         canActivate: [AuthGuardService],
       },
       {

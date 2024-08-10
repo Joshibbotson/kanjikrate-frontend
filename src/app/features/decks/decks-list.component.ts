@@ -7,8 +7,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BreadCrumbsComponent } from '../../ui/bread-crumbs/bread-crumbs.component';
 import { IBreadCrumbsPart } from '../../ui/bread-crumbs/bread-crumbs.types';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CreateDeckdOutlineComponent } from './components/create-card-outline/create-deck-outline.component';
 import { DeckCreateComponent } from './components/deck-create/deck-create.component';
+import { CreateDeckdOutlineComponent } from './components/create-deck-outline/create-deck-outline.component';
 
 @Component({
   selector: 'app-decks-list',

@@ -1,20 +1,21 @@
 import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Card, CardService, Deck, DeckService } from '../../../api';
-import { ButtonComponent } from '../../../ui/button/button.component';
-import { DeckCardComponent } from '../../../ui/deck-card/deckCard.component';
+import { Card, CardService, Deck, DeckService } from '../../api';
+import { ButtonComponent } from '../../ui/button/button.component';
+import { DeckCardComponent } from '../../ui/deck-card/deckCard.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { BreadCrumbsComponent } from '../../../ui/bread-crumbs/bread-crumbs.component';
-import { IBreadCrumbsPart } from '../../../ui/bread-crumbs/bread-crumbs.types';
+import { BreadCrumbsComponent } from '../../ui/bread-crumbs/bread-crumbs.component';
+import { IBreadCrumbsPart } from '../../ui/bread-crumbs/bread-crumbs.types';
 import { CardCreateComponent } from './components/card-create/card-create.component';
 import { CreateCardOutlineComponent } from './components/create-card-outline/create-card-outline.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-deck',
   standalone: true,
-  templateUrl: './deck.component.html',
-  styleUrl: './deck.component.scss',
+  templateUrl: './cards-list.component.html',
+  styleUrl: './cards-list.component.scss',
   imports: [
     DeckCardComponent,
     ButtonComponent,
@@ -25,7 +26,7 @@ import { CreateCardOutlineComponent } from './components/create-card-outline/cre
     CreateCardOutlineComponent,
   ],
 })
-export class DeckComponent {
+export class CardsListComponent {
   public deckData: Deck | undefined;
   public loading = false;
   public cardsData: Card[] | undefined;
@@ -38,10 +39,12 @@ export class DeckComponent {
   constructor(
     private readonly deckService: DeckService,
     private readonly cardService: CardService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private titleService: Title
   ) {
     this.deckId = this.activatedRoute.snapshot.params['id'];
     this.fetchDeckById(this.deckId);
+
     this.fetchCardsByField(
       'deck',
       this.deckId,
@@ -66,7 +69,6 @@ export class DeckComponent {
       })
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.cardsData = res.data;
           this.totalCards = res.totalCount || 0;
         },
@@ -87,6 +89,10 @@ export class DeckComponent {
         if (res.success) {
           this.deckData = res.data;
           this.initialiseBreadCrumbs(id);
+          this.titleService.setTitle(
+            this.deckData?.name || this.activatedRoute.snapshot.data['title']
+          );
+          console.log(this.activatedRoute.snapshot.routeConfig);
         }
       },
       error: (err) => {
