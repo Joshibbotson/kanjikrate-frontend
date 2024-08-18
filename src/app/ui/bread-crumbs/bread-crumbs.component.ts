@@ -14,8 +14,9 @@ export class BreadCrumbsComponent {
   private route = inject(ActivatedRoute);
   ngOnInit(): void {
     console.log(this.route.snapshot.routeConfig);
-    const { currentTitle, parentTitle } = this.getRouteTitles();
-    console.log(currentTitle, parentTitle);
+    const { currentTitle, currentPath, parentTitle, parentPath } =
+      this.getRouteTitles();
+    console.log(currentTitle, currentPath, parentTitle, parentPath);
   }
 
   // initialiseBreadCrumbs() {
@@ -38,23 +39,30 @@ export class BreadCrumbsComponent {
     parentPath: string | null;
   } {
     let currentRoute = this.route.root;
-
+    console.log(this.route.pathFromRoot);
     let currentTitle = null;
     let currentPath = null;
+
     let parentTitle = null;
     let parentPath = null;
 
     while (currentRoute.firstChild) {
       currentRoute = currentRoute.firstChild;
-      currentPath = currentRoute.pathFromRoot;
       if (currentRoute.snapshot.title) {
         parentTitle = currentTitle;
         parentPath = currentPath;
         currentTitle = currentRoute.snapshot.title;
-        currentPath = currentPath.snapshot.pathFromRoot;
+        console.log(currentRoute.snapshot);
+        if (currentRoute.snapshot.routeConfig?.path?.charAt(0) === ':') {
+          currentRoute.params.subscribe((val) => {
+            currentPath = Object.entries(val)[1];
+          });
+        }
+        // console.log(currentRoute.snapshot.routeConfig?.path?.charAt(0) === ':');
+        // currentPath = currentPath.snapshot.pathFromRoot;
       }
     }
 
-    return { currentTitle, parentTitle, currentPath, parentPath };
+    return { currentTitle, currentPath, parentTitle, parentPath };
   }
 }
