@@ -1,11 +1,12 @@
 <div class="card-container">
-
   <div class="card" (click)="toggleCardFace()">
+    <div class="top-left-delete-btn">
+      <common-button (click)="handleDelete()" title="X" [colour]="color" />
+    </div>
     @if (currentShowingFace().valueOf() === 0) {
-      <h1>{{ front() }}</h1>
+    <h1>{{ front() }}</h1>
     } @else {
-      <h1>{{ back() }}</h1>
+    <h1>{{ back() }}</h1>
     }
   </div>
-  
 </div>

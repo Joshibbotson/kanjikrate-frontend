@@ -11,6 +11,13 @@
   box-shadow: $boxShadow;
   cursor: pointer;
   transition: all 250ms;
+  position: relative;
+
+  .top-left-delete-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
 }
 
 .card:hover {

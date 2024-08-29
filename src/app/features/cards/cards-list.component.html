@@ -27,7 +27,11 @@
       (saveClick)="onSaveDeck()"
     />
     } @for (card of cardsData; track $index) {
-    <app-deck-card [front]="card.front" [back]="card.back" />
+    <app-deck-card
+      [front]="card.front"
+      [back]="card.back"
+      [cardId]="card._id"
+    />
     }
   </div>
   }

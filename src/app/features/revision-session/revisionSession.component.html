@@ -7,7 +7,11 @@
 <main>
   <div class="container">
     @if (cardData && !showEndCard()) {
-    <app-deck-card [front]="cardData.front" [back]="cardData.back" />
+    <app-deck-card
+      [front]="cardData.front"
+      [back]="cardData.back"
+      [cardId]="cardData._id"
+    />
 
     <div class="bottom-container">
       <common-button
